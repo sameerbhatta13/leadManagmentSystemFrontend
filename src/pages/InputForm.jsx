@@ -78,13 +78,13 @@ const InputForm = () => {
                                 </div>
                                 <div className='flex flex-col w-64'>
                                     <label htmlFor="" className='font-semibold text-3xl text-white'>Service</label>
-                                    <select name="service" id="" onChange={handleChange} className='border border-gray-400 rounded-lg w-full p-2 my-3 text-white'>
+                                    <select name="service" id="" onChange={handleChange} className='border border-gray-400 rounded-lg w-full p-2 my-3'>
                                         <option value="">select service</option>
                                         <option value="MERN Stack">MERN Stack</option>
                                         <option value="Python Django">Python Django</option>
                                         <option value="Flutter">Flutter</option>
                                         <option value="Ui/Ux Design">Ui/Ux Design</option>
-                                        <option value="Digitial Marketing">Digitial Marketing</option>
+                                        <option value="Digital Marketing">Digitial Marketing</option>
                                         <option value="Web Development">Web Development</option>
                                         <option value="App Development">App Development</option>
                                     </select>
