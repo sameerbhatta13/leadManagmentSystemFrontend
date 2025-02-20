@@ -1,14 +1,44 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useGetUsersQuery, useUpdateUserMutation } from '../redux/api/userApi'
+import { toast } from 'react-toastify'
 
-const UpdateForm = () => {
+const UpdateForm = ({ id, status, setSelectedValue }) => {
 
-    const handleSubmit = () => {
+    const [updateForm, setUpdateForm] = useState({
+        status: status,
+        total_budget: '',
+        installment: '',
+        startDate: '',
+        endDate: ''
+    })
+    const { refetch } = useGetUsersQuery()
+    const [updateUser, { isError, error }] = useUpdateUserMutation()
+
+    const handleChange = (e) => {
+        setUpdateForm({ ...updateForm, [e.target.name]: e.target.value })
 
     }
 
-    const handleChange = () => {
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+
+        try {
+            const updateData = await updateUser({ id: id, data: updateForm })
+            refetch()
+            status === 'Client'
+                ? toast.success('client is added')
+                : status === 'Student'
+                    ? toast.success('student is added')
+                    : toast.success('followup is canceled')
+
+            setSelectedValue('')
+        } catch (error) {
+
+        }
 
     }
+
+
     return (
         <>
             <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-transparent">
@@ -41,10 +71,10 @@ const UpdateForm = () => {
 
                         <button
                             className=' bg-gradient-to-r from-red-300 to-red-800 rounded-lg p-2 mx-4 my-3 transform transition-transform   duration-150 hover:scale-105 font-bold text-white '
-                        // onClick={() => {
-                        //     setSelectedValue('')
+                            onClick={() => {
+                                setSelectedValue('')
 
-                        // }}
+                            }}
                         >
                             Close
                         </button>

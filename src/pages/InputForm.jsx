@@ -43,41 +43,41 @@ const InputForm = () => {
 
     return (
         <>
-            <div className=' h-screen brightness-50'>
+            <div className=' h-screen '>
 
 
-                <h1 className='font-bold flex items-center justify-center py-1 my-3 text-4xl underline '>Add Memeber</h1>
+                <h1 className='font-bold flex md:flex-wrap items-center justify-center py-1 my-3 text-4xl underline '>Add Memeber</h1>
                 <div className='  flex justify-center'>
-                    <div className=' w-[50%]'>
+                    <div className=' w-[40%]'>
                         <form onSubmit={handleSubmit} className=' m-6'>
-                            <div className=' flex flex-row justify-between my-6 '>
-                                <div className='  flex flex-col w-64'>
-                                    <label htmlFor="" className='font-semibold text-3xl text-white'>Full Name</label>
+                            <div className='flex flex-row justify-between my-6 '>
+                                <div className='flex flex-col w-64 '>
+                                    <label htmlFor="" className='font-semibold text-3xl'>Full Name</label>
                                     <input
                                         type="text"
                                         placeholder='Enter Full Name'
                                         name='name'
-                                        onChange={handleChange} className='border border-gray-400 rounded-lg w-full p-2 my-3 text-white' />
+                                        onChange={handleChange} className='border border-gray-400 rounded-lg w-full p-2 my-3 text-black' />
                                 </div>
                                 <div className='flex flex-col w-64'>
-                                    <label htmlFor="" className='font-semibold text-3xl text-white'>Email</label>
+                                    <label htmlFor="" className='font-semibold text-3xl '>Email</label>
                                     <input type="text"
                                         placeholder='Enter Email'
                                         name='email'
-                                        onChange={handleChange} className='border border-gray-400 rounded-lg w-full p-2 my-3 text-white' />
+                                        onChange={handleChange} className='border border-gray-400 rounded-lg w-full p-2 my-3 ' />
                                 </div>
 
                             </div>
 
-                            <div className=' flex flex-row justify-between my-6'>
+                            <div className='flex flex-row justify-between my-6'>
                                 <div className='flex flex-col w-64'>
-                                    <label htmlFor="" className='font-semibold text-3xl text-white'>Phone</label>
+                                    <label htmlFor="" className='font-semibold text-3xl '>Phone</label>
                                     <input type="text"
                                         placeholder='Enter Phone Number' name='phone'
-                                        onChange={handleChange} className='border border-gray-400 rounded-lg w-full p-2 my-3 text-white' />
+                                        onChange={handleChange} className='border border-gray-400 rounded-lg w-full p-2 my-3 ' />
                                 </div>
                                 <div className='flex flex-col w-64'>
-                                    <label htmlFor="" className='font-semibold text-3xl text-white'>Service</label>
+                                    <label htmlFor="" className='font-semibold text-3xl '>Service</label>
                                     <select name="service" id="" onChange={handleChange} className='border border-gray-400 rounded-lg w-full p-2 my-3'>
                                         <option value="">select service</option>
                                         <option value="MERN Stack">MERN Stack</option>
@@ -92,8 +92,8 @@ const InputForm = () => {
                                 </div>
 
                             </div>
-                            <div className='flex flex-col'>
-                                <button className='bg-gradient-to-r from-green-300 to-blue-300 p-2 rounded-lg font-bold transform transition-transform duration-300 hover:scale-105 text-3xl'>Submit Now</button>
+                            <div className='flex flex-col '>
+                                <button className='bg-gradient-to-r from-red-800 to-red-800 p-2 rounded-lg transform transition-transform duration-300 hover:scale-105 text-3xl text-white font-bold '>Submit Now</button>
 
                             </div>
 

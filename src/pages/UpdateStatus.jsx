@@ -1,13 +1,19 @@
 import React, { useState } from 'react'
-import { useUpdateUserMutation } from '../redux/api/userApi'
+import { useGetUsersQuery, useUpdateUserMutation } from '../redux/api/userApi'
+import { toast } from 'react-toastify'
 
 const UpdateStatus = (props) => {
     const [followUp, setFollowUp] = useState({
-        status: '',
+        status: props.status,
         followUp: ''
     })
+    // const stat = props.status
+    // setSelectedValue(stat)
+
     const id = props.id
     console.log(id)
+
+    const { refetch } = useGetUsersQuery()
 
     const [updateUser, { error: updateErr, isError: isupdateErr }] = useUpdateUserMutation()
 
@@ -18,12 +24,13 @@ const UpdateStatus = (props) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log(followUp)
+
         try {
             const updateData = await updateUser({ id: id, data: followUp })
             console.log(updateData)
             refetch()
             toast.success('followup date updated')
+            props.setSelectedValue('select status')
         } catch (error) {
             console.log(error)
         }
@@ -43,7 +50,7 @@ const UpdateStatus = (props) => {
                         <button
                             className=' bg-gradient-to-r from-red-300 to-red-400 rounded-lg p-2 mx-3.5 my-3 transform transition-transform   duration-150 hover:scale-105 font-bold '
                             onClick={() => {
-                                setSelectedValue('')
+                                props.setSelectedValue('')
 
                             }}
                         >
