@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Lead from '../assets/lead.jpg'
 import { useAddUserMutation } from '../redux/api/userApi'
 import { toast } from 'react-toastify'
+import FilterStatus from '../components/FilterStatus'
 
 const InputForm = () => {
     const [values, setValues] = useState({
@@ -101,6 +102,8 @@ const InputForm = () => {
                     </div>
 
                 </div>
+
+                <FilterStatus />
             </div>
         </>
     )

@@ -26,9 +26,15 @@ export const UserApi = createApi({
                 method: 'PUT',
                 body: data
             })
+        }),
+        filterUser: builder.query({
+            query: (status) => ({
+                url: `/authfilter?status=${status}`,
+                method: 'GET'
+            })
         })
 
     })
 })
 
-export const { useAddUserMutation, useGetUsersQuery, useUpdateUserMutation } = UserApi
+export const { useAddUserMutation, useGetUsersQuery, useUpdateUserMutation, useFilterUserQuery } = UserApi

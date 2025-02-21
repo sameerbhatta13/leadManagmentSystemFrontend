@@ -5,7 +5,8 @@ import { toast } from 'react-toastify'
 const UpdateStatus = (props) => {
     const [followUp, setFollowUp] = useState({
         status: props.status,
-        followUp: ''
+        followUp: '',
+
     })
     // const stat = props.status
     // setSelectedValue(stat)

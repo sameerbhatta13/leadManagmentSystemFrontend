@@ -3,35 +3,15 @@ import { useGetUsersQuery, useUpdateUserMutation } from '../redux/api/userApi'
 import { toast } from 'react-toastify'
 import UpdateForm from './updateForm'
 import UpdateStatus from './UpdateStatus'
+import UpdateCancel from './UpdateCancel'
 
 const UserList = () => {
     const [selectedValue, setSelectedValue] = useState('')
     const [selectUser, setSelectUser] = useState({})
 
-    const id = selectUser?._id
-    // console.log(id)
-
-    const [updateUser, { error: updateErr, isError: isupdateErr }] = useUpdateUserMutation()
-    console.log(updateErr, isupdateErr)
+    console.log(selectedValue)
 
 
-    // const handleChange = (e) => {
-    //     setFollowUp({ ...followUp, [e.target.name]: e.target.value })
-
-    // }
-
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault()
-    //     console.log(followUp)
-    //     try {
-    //         const updateData = await updateUser({ id: id, data: followUp })
-    //         console.log(updateData)
-    //         refetch()
-    //         toast.success('followup date updated')
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
-    // }
 
 
     const { data, error, isError, refetch } = useGetUsersQuery()
@@ -97,8 +77,6 @@ const UserList = () => {
 
                                                                 name="service" id="" className='border border-gray-300 rounded-lg my-3 p-1 w-[50%]'>
                                                                 <option value=" " disabled selected> select status</option>
-                                                                {/* <option value="Client">Client</option>
-                                                            <option value="Student">Student</option> */}
                                                                 <option value="Cancel">Cancel</option>
 
                                                             </select>
@@ -127,7 +105,9 @@ const UserList = () => {
 
                                         ) : (selectedValue == 'Client' || selectedValue == 'Student') && selectUser._id == user._id ? (
                                             <UpdateForm id={user?._id} status={selectedValue} setSelectedValue={setSelectedValue} />
-                                        ) : null}
+                                        ) : (selectedValue == 'Cancel' &&
+                                            <UpdateCancel status={selectedValue} id={selectUser?._id} setSelectedValue={setSelectedValue} />
+                                        )}
                                     </tr>
                                 })
                             }
