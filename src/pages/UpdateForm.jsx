@@ -24,13 +24,12 @@ const UpdateForm = ({ id, status, setSelectedValue }) => {
 
         try {
             const updateData = await updateUser({ id: id, data: updateForm })
-            refetch()
             status === 'Client'
                 ? toast.success('client is added')
                 : status === 'Student'
                     ? toast.success('student is added')
                     : toast.success('followup is canceled')
-
+            refetch()
             setSelectedValue('')
         } catch (error) {
 
@@ -73,6 +72,7 @@ const UpdateForm = ({ id, status, setSelectedValue }) => {
                             className=' bg-gradient-to-r from-red-300 to-red-800 rounded-lg p-2 mx-4 my-3 transform transition-transform   duration-150 hover:scale-105 font-bold text-white '
                             onClick={() => {
                                 setSelectedValue('')
+                                refetch()
 
                             }}
                         >

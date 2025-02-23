@@ -41,12 +41,12 @@ const FilterStatus = () => {
 
     return (
         <>
-            <div className=' flex justify-evenly '>
-                <div className='flex flex-col'>
+            <div className=' flex flex-wrap justify-evenly gap-4'>
+                <div className='flex lg:flex-col flex-wrap sm:flex-row gap-2 justify-center'>
 
                     {
                         data.map((item, index) => (
-                            <NavLink className={({ isActive }) => `cursor-pointer p-2 bg-blue-200 rounded-md hover:bg-blue-500 my-3 ${isActive ? `` : ``} `} onClick={() => setStatus(item.value)}  >{item.value}</NavLink>
+                            <p className={`cursor-pointer p-2 bg-blue-200 rounded-md hover:bg-blue-500 my-3 ${status === item.value ? `bg-blue-700 text-white` : ``} `} onClick={() => setStatus(item.value)}  >{item.value}</p>
                         ))
                     }
 
@@ -86,10 +86,6 @@ const FilterStatus = () => {
 
                         })
                     }
-
-
-
-
 
                 </div>
 

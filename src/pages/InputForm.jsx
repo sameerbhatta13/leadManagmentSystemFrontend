@@ -51,7 +51,7 @@ const InputForm = () => {
                 <div className='  flex justify-center'>
                     <div className=' w-[40%]'>
                         <form onSubmit={handleSubmit} className=' m-6'>
-                            <div className='flex flex-row justify-between my-6 '>
+                            <div className='flex flex-wrap lg:flex-row sm:flex-col justify-between my-6 '>
                                 <div className='flex flex-col w-64 '>
                                     <label htmlFor="" className='font-semibold text-3xl'>Full Name</label>
                                     <input
@@ -70,7 +70,7 @@ const InputForm = () => {
 
                             </div>
 
-                            <div className='flex flex-row justify-between my-6'>
+                            <div className='flex flex-wrap lg:flex-row sm:flex-col  justify-between my-6'>
                                 <div className='flex flex-col w-64'>
                                     <label htmlFor="" className='font-semibold text-3xl '>Phone</label>
                                     <input type="text"
@@ -84,10 +84,10 @@ const InputForm = () => {
                                         <option value="MERN Stack">MERN Stack</option>
                                         <option value="Python Django">Python Django</option>
                                         <option value="Flutter">Flutter</option>
-                                        <option value="Ui/Ux Design">Ui/Ux Design</option>
-                                        <option value="Digital Marketing">Digitial Marketing</option>
+                                        <option value="Digital Marketing">Digital Marketing</option>
                                         <option value="Web Development">Web Development</option>
                                         <option value="App Development">App Development</option>
+                                        <option value="Ui/Ux Design">Ui/Ux Design</option>
                                     </select>
                                     {/* <input type="text" placeholder='Enter Service' name='service'   /> */}
                                 </div>

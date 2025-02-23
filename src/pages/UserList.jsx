@@ -41,7 +41,7 @@ const UserList = () => {
 
                         <tbody>
                             {
-                                data?.data?.map((user, index) => {
+                                data?.data?.filter(user => user.status !== 'Cancel')?.map((user, index) => {
                                     return <tr key={index}>
                                         <td className='border border-gray-300 text-center' >{index + 1}</td>
                                         <td className='border border-gray-300 text-center'>{user.name}</td>
