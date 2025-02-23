@@ -1,8 +1,6 @@
-import React, { useState } from 'react'
-import Lead from '../assets/lead.jpg'
-import { useAddUserMutation } from '../redux/api/userApi'
-import { toast } from 'react-toastify'
-import FilterStatus from '../components/FilterStatus'
+import React, { useState } from 'react';
+import { useAddUserMutation } from '../redux/api/userApi';
+import { toast } from 'react-toastify';
 
 const InputForm = () => {
     const [values, setValues] = useState({
@@ -10,103 +8,98 @@ const InputForm = () => {
         email: '',
         phone: '',
         service: ''
-    })
+    });
 
-    const [addUser, { isError, error }] = useAddUserMutation()
-    console.log(isError, error)
+    const [addUser, { isError, error }] = useAddUserMutation();
+    console.log(isError, error);
 
     const handleChange = event => {
-        setValues({ ...values, [event.target.name]: event.target.value })
-
-
-    }
-
+        setValues({ ...values, [event.target.name]: event.target.value });
+    };
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
-
+        e.preventDefault();
         try {
-            const response = await addUser(values)
-
+            const response = await addUser(values);
             if (response.ok) {
-                const data = await response.json()
-                console.log(data)
+                console.log(await response.json());
             }
-            toast.success('user add successfully')
-
+            toast.success('User added successfully');
         } catch (error) {
-            console.log("error", error)
-            toast.error("error", error)
-
+            console.log("error", error);
+            toast.error("Error adding user");
         }
-
-    }
+    };
 
     return (
         <>
-            <div className=' h-screen '>
+            <div className='px-20'>
 
-
-                <h1 className='font-bold flex md:flex-wrap items-center justify-center py-1 my-3 text-4xl underline '>Add Memeber</h1>
-                <div className='  flex justify-center'>
-                    <div className=' w-[40%]'>
-                        <form onSubmit={handleSubmit} className=' m-6'>
-                            <div className='flex flex-wrap lg:flex-row sm:flex-col justify-between my-6 '>
-                                <div className='flex flex-col w-64 '>
-                                    <label htmlFor="" className='font-semibold text-3xl'>Full Name</label>
+                <div className='min-h-screen flex items-center justify-center bg-gray-100 px-4'>
+                    <div className='bg-white shadow-lg rounded-lg p-8 w-full max-w-2xl'>
+                        <h1 className='text-3xl font-bold text-center text-gray-800 mb-6'>Add Member</h1>
+                        <form onSubmit={handleSubmit} className='space-y-5 rounded-lg'>
+                            <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                                <div className='flex flex-col'>
+                                    <label className='text-lg font-semibold text-gray-700'>Full Name</label>
                                     <input
-                                        type="text"
+                                        type='text'
                                         placeholder='Enter Full Name'
                                         name='name'
-                                        onChange={handleChange} className='border border-gray-400 rounded-lg w-full p-2 my-3 text-black' />
+                                        onChange={handleChange}
+                                        className='border border-gray-300 rounded-lg p-2 focus:ring focus:ring-red-300 outline-none'
+                                    />
                                 </div>
-                                <div className='flex flex-col w-64'>
-                                    <label htmlFor="" className='font-semibold text-3xl '>Email</label>
-                                    <input type="text"
+                                <div className='flex flex-col'>
+                                    <label className='text-lg font-semibold text-gray-700'>Email</label>
+                                    <input
+                                        type='email'
                                         placeholder='Enter Email'
                                         name='email'
-                                        onChange={handleChange} className='border border-gray-400 rounded-lg w-full p-2 my-3 ' />
+                                        onChange={handleChange}
+                                        className='border border-gray-300 rounded-lg p-2 focus:ring focus:ring-red-300 outline-none'
+                                    />
                                 </div>
-
                             </div>
-
-                            <div className='flex flex-wrap lg:flex-row sm:flex-col  justify-between my-6'>
-                                <div className='flex flex-col w-64'>
-                                    <label htmlFor="" className='font-semibold text-3xl '>Phone</label>
-                                    <input type="text"
-                                        placeholder='Enter Phone Number' name='phone'
-                                        onChange={handleChange} className='border border-gray-400 rounded-lg w-full p-2 my-3 ' />
+                            <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                                <div className='flex flex-col'>
+                                    <label className='text-lg font-semibold text-gray-700'>Phone</label>
+                                    <input
+                                        type='tel'
+                                        placeholder='Enter Phone Number'
+                                        name='phone'
+                                        onChange={handleChange}
+                                        className='border border-gray-300 rounded-lg p-2 focus:ring focus:ring-red-300 outline-none'
+                                    />
                                 </div>
-                                <div className='flex flex-col w-64'>
-                                    <label htmlFor="" className='font-semibold text-3xl '>Service</label>
-                                    <select name="service" id="" onChange={handleChange} className='border border-gray-400 rounded-lg w-full p-2 my-3'>
-                                        <option value="">select service</option>
-                                        <option value="MERN Stack">MERN Stack</option>
-                                        <option value="Python Django">Python Django</option>
-                                        <option value="Flutter">Flutter</option>
-                                        <option value="Digital Marketing">Digital Marketing</option>
-                                        <option value="Web Development">Web Development</option>
-                                        <option value="App Development">App Development</option>
-                                        <option value="Ui/Ux Design">Ui/Ux Design</option>
+                                <div className='flex flex-col'>
+                                    <label className='text-lg font-semibold text-gray-700'>Service</label>
+                                    <select
+                                        name='service'
+                                        onChange={handleChange}
+                                        className='border border-gray-300 rounded-lg p-2 focus:ring focus:ring-red-300 outline-none'>
+                                        <option value=''>Select Service</option>
+                                        <option value='MERN Stack'>MERN Stack</option>
+                                        <option value='Python Django'>Python Django</option>
+                                        <option value='Flutter'>Flutter</option>
+                                        <option value='Digital Marketing'>Digital Marketing</option>
+                                        <option value='Web Development'>Web Development</option>
+                                        <option value='App Development'>App Development</option>
+                                        <option value='Ui/Ux Design'>UI/UX Design</option>
                                     </select>
-                                    {/* <input type="text" placeholder='Enter Service' name='service'   /> */}
                                 </div>
-
                             </div>
-                            <div className='flex flex-col '>
-                                <button className='bg-gradient-to-r from-red-800 to-red-800 p-2 rounded-lg transform transition-transform duration-300 hover:scale-105 text-3xl text-white font-bold '>Submit Now</button>
-
-                            </div>
-
+                            <button
+                                type='submit'
+                                className='w-full bg-red-600 text-white text-lg font-semibold py-2 rounded-lg hover:bg-red-700 transition-all'>
+                                Submit Now
+                            </button>
                         </form>
                     </div>
-
                 </div>
-
-                <FilterStatus />
             </div>
         </>
-    )
-}
+    );
+};
 
-export default InputForm
+export default InputForm;

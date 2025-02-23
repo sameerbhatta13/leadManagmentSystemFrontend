@@ -1,16 +1,24 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useFilterUserQuery } from '../redux/api/userApi'
 import { MdDelete } from "react-icons/md";
 import { LuView } from "react-icons/lu";
-import { NavLink } from 'react-router'
+import { GrUpdate } from "react-icons/gr";
+import { NavLink, useNavigate } from 'react-router'
+import UpdateClient from '../updates/UpdateClient';
 
 const FilterStatus = () => {
+    const navigate = useNavigate()
     const [user, setUser] = useState('')
-    const [value, setValue] = useState('')
+    const [updateUser, setUpdateUser] = useState('')
+
+
     const [status, setStatus] = useState('Client')
     // console.log("status", status)
-    console.log("value", value)
-    console.log("user", user)
+
+    // console.log("user", user)
+
+    const popupRef = useRef(null)
+
 
 
     const data = [
@@ -41,55 +49,95 @@ const FilterStatus = () => {
 
     return (
         <>
-            <div className=' flex flex-wrap justify-evenly gap-4'>
-                <div className='flex lg:flex-col flex-wrap sm:flex-row gap-2 justify-center'>
+            <div className=' flex flex-wrap gap-48 my-11 px-20'>
+                <div className='flex lg:flex-col flex-wrap sm:flex-row gap-4 justify-center'>
 
                     {
                         data.map((item, index) => (
-                            <p className={`cursor-pointer p-2 bg-blue-200 rounded-md hover:bg-blue-500 my-3 ${status === item.value ? `bg-blue-700 text-white` : ``} `} onClick={() => setStatus(item.value)}  >{item.value}</p>
+                            <p className={`cursor-pointer px-4 py-1.5 bg-blue-200 rounded-md hover:bg-blue-500 my-0.5 ${status === item.value ? `bg-blue-700 text-white` : ``} `} onClick={() => setStatus(item.value)}  >{item.value}</p>
                         ))
                     }
 
                 </div>
-                <div className="bg-amber-200 p-4 rounded-md w-3/4">
-                    {/* Header Row */}
-                    <div className="grid grid-cols-6 font-bold text-white bg-gray-700 p-2">
-                        <h1 className="text-center">Index</h1>
-                        <h1 className="text-center">Name</h1>
-                        <h1 className="text-center">Email</h1>
-                        <h1 className="text-center">Phone</h1>
-                        <h1 className="text-center">Service</h1>
-                        <h1 className="text-center">Action</h1>
+                <div className="bg-gray-50 w-3/4">
+                    <table className='table-auto border-separate border-gray-400 w-full p-2 my-6 rounded-lg overflow-hidden'>
+                        <thead >
+                            <tr>
+                                <th className='border border-gray-300 p-2'>S.N</th>
+                                <th className='border border-gray-300 p-2'>Name</th>
+                                <th className='border border-gray-300 p-2'>Email</th>
+                                <th className='border border-gray-300 p-2'>Phone</th>
+                                <th className='border border-gray-300 p-2'>Service</th>
+                                <th className='border border-gray-300 p-2'>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody className='bg-white text-black'>
+                            {filterUser?.data?.map((items, index) => (
+                                <tr key={index} className='text-center'>
+                                    <td className='border border-gray-300 p-2'>{index + 1}</td>
+                                    <td className='border border-gray-300 p-2'>{items.name}</td>
+                                    <td className='border border-gray-300 p-2'>{items.email}</td>
+                                    <td className='border border-gray-300 p-2'>{items.phone}</td>
+                                    <td className='border border-gray-300 p-2'>{items.service}</td>
+                                    <td className='border border-gray-300 p-2'>
+                                        {(items.status === "Student" || items.status === "Client") && (
+                                            <div className='flex justify-center items-center gap-2'>
+                                                <button className='hover:scale-105' onClick={() => setUser(items._id)}><LuView /></button>
+                                                <button className='hover:scale-105' onClick={() => setUpdateUser(items._id)}><GrUpdate /></button>
+                                            </div>
+                                        )}
+                                        {items.status === "Follow Up" && (
+                                            <div className='flex justify-center items-center gap-2'>
+                                                <button className='hover:scale-105' onClick={() => setUpdateUser(items._id)}><GrUpdate /></button>
+                                            </div>
+                                        )}
+                                    </td>
 
-                    </div>
-                    {
-                        filterUser?.data?.map((items, index) => {
-                            return <div key={index} className="grid grid-cols-6 text-center p-2 border-b border-gray-400">
-                                <h1>{index + 1}</h1>
-                                <h1>{items.name}</h1>
-                                <h1>{items.email}</h1>
-                                <h1>{items.phone}</h1>
-                                <h1>{items.service}</h1>
-                                <div className='flex justify-center items-center gap-2'>
-                                    <button className='hover:scale-105' ><MdDelete /> </button>
-                                    <button className='hover:scale-105' onClick={(e) => {
-                                        setValue(e.target.value)
-                                        setUser(items._id)
-                                    }} ><LuView /> </button>
-                                    <button > </button>
+                                    {
+                                        ((status === 'Client' || status === 'Student') && user === items._id) ?
+                                            (
+                                                <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-transparent">
+                                                    <div className="bg-white p-6 rounded-lg shadow-lg flex flex-col">
+                                                        <table className='table-auto border-collapse border border-gray-400 w-full p-2  my-6'>
+                                                            <thead>
+                                                                <tr>
+                                                                    <th className='border border-gray-300 p-2'> Start Date</th>
+                                                                    <th className='border border-gray-300  p-2'> End Date</th>
+                                                                    <th className='border border-gray-300  p-2'>Total_Amount</th>
+                                                                    <th className='border border-gray-300  p-2'>Installment</th>
+                                                                    <th className='border border-gray-300  p-2'>Remaining_Amount</th>
+                                                                </tr>
 
-                                </div>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td className='border border-gray-300 text-center  p-2'>{new Date(items.startDate).toLocaleDateString()}</td>
+                                                                    <td className='border border-gray-300 text-center  p-2'>{new Date(items.endDate).toLocaleDateString()}</td>
+                                                                    <td className='border border-gray-300 text-center  p-2'>{items.total_budget}</td>
+                                                                    <td className='border border-gray-300 text-center  p-2'>{items.installment}</td>
+                                                                    <td className='border border-gray-300 text-center  p-2'>{(items?.total_budget) - (items?.installment[0])}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>) : ((status === 'Client' || status === 'Student') && updateUser === items._id &&
+                                                    <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-transparent">
+                                                        <div className="bg-white p-6 rounded-lg shadow-lg flex flex-col">
+                                                            <UpdateClient id={items._id} item={items} />
 
 
+                                                        </div>
+                                                    </div>
+                                            )
+                                    }
+                                </tr>
 
-                            </div>
 
-                        })
-                    }
-
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
-
-            </div >
+            </div>
 
         </>
     )

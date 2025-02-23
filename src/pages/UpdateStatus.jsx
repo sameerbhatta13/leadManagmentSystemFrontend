@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useGetUsersQuery, useUpdateUserMutation } from '../redux/api/userApi'
 import { toast } from 'react-toastify'
 
@@ -57,6 +57,7 @@ const UpdateStatus = (props) => {
                                 className=' bg-gradient-to-r from-red-300 to-red-400 rounded-lg p-2 mx-3.5 my-3 transform transition-transform   duration-150 hover:scale-105 font-bold '
                                 onClick={() => {
                                     props.setSelectedValue('')
+
 
                                 }}
                             >

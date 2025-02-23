@@ -7,48 +7,60 @@ import UpdateCancel from './UpdateCancel'
 
 const UserList = () => {
     const [selectedValue, setSelectedValue] = useState('')
+    const [search, setSearch] = useState('')
     const [selectUser, setSelectUser] = useState({})
 
-    console.log(selectedValue)
+
+    const { data: UserData, error, isError, refetch } = useGetUsersQuery()
+    // console.log("data", UserData)
+    const users = UserData?.data || null
+
+    const filterData = users?.filter(item => item.status.toLowerCase().includes(search.toLowerCase()))
 
 
-
-
-    const { data, error, isError, refetch } = useGetUsersQuery()
-    // console.log("data", data)
-    // console.log(isError, error)
     useEffect(() => {
         refetch()
     }, [])
     return (
         <>
-            <div className=' '>
-                <h1 className='text-center my-6 font-bold'>here is the list of Memeber</h1>
-                <div className='flex justify-center items-center'>
-                    <table className='table-auto border-collapse border border-gray-400 w-full p-2 mx-11 my-6'>
+
+
+            <h1 className='text-center my-6 font-bold underline underline-offset-4'>Here is the list of Memeber</h1>
+            <div className="flex justify-center mb-6">
+                <input
+                    type="text"
+                    placeholder="Search by status..."
+                    className="w-full max-w-md p-2 border rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                    onChange={(e) => setSearch(e.target.value)}
+                />
+            </div>
+            <div className='bg-gray-50 flex justify-center items-center'>
+                {filterData?.length > 0 ? (
+                    <table className='table-auto border-seperated border border-gray-400 w-full p-2 mx-11 my-6 rounded-lg overflow-hidden'>
                         <thead >
                             <tr >
-                                <th className='border border-gray-300 '>S.N</th>
-                                <th className='border border-gray-300'>Name</th>
-                                <th className='border border-gray-300 '>Email</th>
-                                <th className='border border-gray-300 '>Phone Number</th>
-                                <th className='border border-gray-300 '> status</th>
-                                <th className='border border-gray-300 '>Change Status</th>
+                                <th className='border border-gray-300 p-2 '>S.N</th>
+                                <th className='border border-gray-300 p-2'>Name</th>
+                                <th className='border border-gray-300 p-2 '>Email</th>
+                                <th className='border border-gray-300 p-2 '>Phone Number</th>
+                                <th className='border border-gray-300 p-2 '> Status</th>
+                                <th className='border border-gray-300 p-2 '>Change Status</th>
 
 
                             </tr>
                         </thead>
 
-                        <tbody>
+                        <tbody className='bg-white text-black'>
                             {
-                                data?.data?.filter(user => user.status !== 'Cancel')?.map((user, index) => {
+
+                                filterData?.filter(user => user.status !== 'Cancel')?.map((user, index) => {
                                     return <tr key={index}>
-                                        <td className='border border-gray-300 text-center' >{index + 1}</td>
-                                        <td className='border border-gray-300 text-center'>{user.name}</td>
-                                        <td className='border border-gray-300 text-center'>{user.email}</td>
-                                        <td className='border border-gray-300 text-center'>{user.phone}</td>
-                                        <td className='border border-gray-300 text-center'>{user.status}</td>
-                                        <td className='border border-gray-300 text-center'>
+                                        <td className='border border-gray-300 text-center p-2' >{index + 1}</td>
+                                        <td className='border border-gray-300 text-center p-2'>{user.name}</td>
+                                        <td className='border border-gray-300 text-center p-2'>{user.email}</td>
+                                        <td className='border border-gray-300 text-center p-2'>{user.phone}</td>
+                                        <td className='border border-gray-300 text-center p-2'>{user.status}</td>
+                                        <td className='border border-gray-300 text-center p-2'>
 
                                             {
                                                 user.status == 'Active' ? (
@@ -110,14 +122,21 @@ const UserList = () => {
                                         )}
                                     </tr>
                                 })
+
                             }
 
                         </tbody>
 
                     </table>
+                ) : (
+                    <div className='flex justify-center items-center my-9'>
+                        <h1 className='font-bold text-5xl'>No Records Found</h1>
+                    </div>
+                )
+                }
 
-                </div>
             </div>
+
 
         </>
     )
