@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { useGetUsersQuery, useUpdateUserMutation } from '../redux/api/userApi'
+
 import { toast } from 'react-toastify'
+import { useGetUsersQuery, useUpdateUserMutation } from '../redux/Api/UserApi'
 
 const UpdateForm = ({ id, status, setSelectedValue }) => {
 
@@ -40,7 +41,7 @@ const UpdateForm = ({ id, status, setSelectedValue }) => {
 
     return (
         <>
-            <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-transparent">
+            <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center  bg-black/60 ">
                 <div className="bg-white p-6 flex  rounded-lg shadow-lg">
                     <form action="" onSubmit={handleSubmit}>
                         <h2 className="text-lg font-semibold">Add More Information</h2>

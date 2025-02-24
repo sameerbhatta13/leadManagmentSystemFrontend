@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { useGetUsersQuery, useUpdateUserMutation } from '../redux/api/userApi'
+
 import { toast } from 'react-toastify'
-import UpdateForm from './updateForm'
+
 import UpdateStatus from './UpdateStatus'
 import UpdateCancel from './UpdateCancel'
+import { useGetUsersQuery } from '../redux/Api/UserApi'
+import UpdateForm from './UpdateForm'
 
 const UserList = () => {
     const [selectedValue, setSelectedValue] = useState('')
@@ -12,15 +14,19 @@ const UserList = () => {
 
 
     const { data: UserData, error, isError, refetch } = useGetUsersQuery()
-    // console.log("data", UserData)
+
     const users = UserData?.data || null
 
-    const filterData = users?.filter(item => item.status.toLowerCase().includes(search.toLowerCase()))
+    const filterData = users?.filter(item => item.status.toLowerCase().includes(search.toLowerCase()) || item.name.toLowerCase().includes(search.toLowerCase()) || item.phone.includes(search()))
 
 
     useEffect(() => {
         refetch()
     }, [])
+
+
+
+
     return (
         <>
 
@@ -34,7 +40,7 @@ const UserList = () => {
                     onChange={(e) => setSearch(e.target.value)}
                 />
             </div>
-            <div className='bg-gray-50 flex justify-center items-center'>
+            <div className='bg-gray-50 flex justify-center items-center px-14'>
                 {filterData?.length > 0 ? (
                     <table className='table-auto border-seperated border border-gray-400 w-full p-2 mx-11 my-6 rounded-lg overflow-hidden'>
                         <thead >
@@ -45,8 +51,6 @@ const UserList = () => {
                                 <th className='border border-gray-300 p-2 '>Phone Number</th>
                                 <th className='border border-gray-300 p-2 '> Status</th>
                                 <th className='border border-gray-300 p-2 '>Change Status</th>
-
-
                             </tr>
                         </thead>
 
@@ -72,7 +76,7 @@ const UserList = () => {
                                                         }}
 
                                                         name="service" id="" className='border border-gray-300 rounded-lg my-3 p-1 w-[50%]'>
-                                                        <option value=" " disabled selected> select status</option>
+                                                        <option value="" disabled selected> select status</option>
                                                         <option value="Follow Up">Follow Up</option>
                                                         <option value="Cancel">Cancel</option>
                                                     </select>
@@ -88,7 +92,7 @@ const UserList = () => {
                                                                 }}
 
                                                                 name="service" id="" className='border border-gray-300 rounded-lg my-3 p-1 w-[50%]'>
-                                                                <option value=" " disabled selected> select status</option>
+                                                                <option value="" disabled selected> select status</option>
                                                                 <option value="Cancel">Cancel</option>
 
                                                             </select>
@@ -101,7 +105,7 @@ const UserList = () => {
                                                                 }}
 
                                                                 name="service" id="" className='border border-gray-300 rounded-lg my-3 p-1 w-[50%]'>
-                                                                <option value=" " disabled selected> select status</option>
+                                                                <option value="" disabled selected> select status</option>
                                                                 <option value="Client">Client</option>
                                                                 <option value="Student">Student</option>
                                                                 <option value="Cancel">Cancel</option>

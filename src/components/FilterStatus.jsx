@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { useFilterUserQuery } from '../redux/api/userApi'
-import { MdDelete } from "react-icons/md";
-import { LuView } from "react-icons/lu";
+import { MdModeEditOutline } from "react-icons/md";
+import { FaEye } from "react-icons/fa";
 import { GrUpdate } from "react-icons/gr";
 import { NavLink, useNavigate } from 'react-router'
 import UpdateClient from '../updates/UpdateClient';
+import { useFilterUserQuery, useGetUsersQuery } from '../redux/Api/UserApi';
+import UpdateFollowup from '../updates/UpdateFollowup';
+import UpdateStatus from '../pages/UpdateStatus';
 
 const FilterStatus = () => {
     const navigate = useNavigate()
@@ -14,7 +16,6 @@ const FilterStatus = () => {
 
     const [status, setStatus] = useState('Client')
     // console.log("status", status)
-
     // console.log("user", user)
 
     const popupRef = useRef(null)
@@ -56,15 +57,22 @@ const FilterStatus = () => {
         }
     ]
 
+    const { refetch } = useGetUsersQuery()
     const { data: filterUser, isError, error } = useFilterUserQuery(status)
-    console.log("filterUser", filterUser)
-    console.log(isError)
+
+    useEffect(() => {
+
+        refetch()
+
+
+    }, [])
+
 
 
     return (
         <>
             <div className=' flex flex-wrap gap-48 my-11 px-20'>
-                <div className='flex lg:flex-col flex-wrap sm:flex-row gap-4 justify-center'>
+                <div className='flex lg:flex-col flex-wrap sm:flex-row gap-4 justify-items-start mt-8'>
 
                     {
                         data.map((item, index) => (
@@ -96,13 +104,13 @@ const FilterStatus = () => {
                                     <td className='border border-gray-300 p-2'>
                                         {(items.status === "Student" || items.status === "Client") && (
                                             <div className='flex justify-center items-center gap-2'>
-                                                <button className='hover:scale-105' onClick={() => setUser(items._id)}><LuView /></button>
-                                                <button className='hover:scale-105' onClick={() => setUpdateUser(items._id)}><GrUpdate /></button>
+                                                <button className='hover:scale-105' onClick={() => setUser(items._id)}><FaEye /></button>
+                                                <button className='hover:scale-105' onClick={() => setUpdateUser(items._id)}><MdModeEditOutline /></button>
                                             </div>
                                         )}
                                         {items.status === "Follow Up" && (
                                             <div className='flex justify-center items-center gap-2'>
-                                                <button className='hover:scale-105' onClick={() => setUpdateUser(items._id)}><GrUpdate /></button>
+                                                <button className='hover:scale-105' onClick={() => setUpdateUser(items._id)}><MdModeEditOutline /></button>
                                             </div>
                                         )}
                                     </td>
@@ -110,15 +118,17 @@ const FilterStatus = () => {
                                     {
                                         ((status === 'Client' || status === 'Student') && user === items._id) ?
                                             (
-                                                <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-transparent">
+                                                <div className="fixed top-0 left-0 w-full h-full flex justify-center  items-center  bg-black/60  ">
                                                     <div ref={popupRef} className="bg-white p-6 rounded-lg shadow-lg flex flex-col">
                                                         <table className='table-auto border-collapse border border-gray-400 w-full p-2  my-6'>
                                                             <thead>
                                                                 <tr>
                                                                     <th className='border border-gray-300 p-2'> Start Date</th>
                                                                     <th className='border border-gray-300  p-2'> End Date</th>
-                                                                    <th className='border border-gray-300  p-2'>Total_Amount</th>
-                                                                    <th className='border border-gray-300  p-2'>Installment</th>
+                                                                    <th className='border border-gray-300  p-2'>Total_Budget</th>
+                                                                    <th className='border border-gray-300  p-2'>First Installment</th>
+                                                                    <th className='border border-gray-300  p-2'>Second Installment</th>
+                                                                    <th className='border border-gray-300  p-2'>Third Installment</th>
                                                                     <th className='border border-gray-300  p-2'>Remaining_Amount</th>
                                                                 </tr>
 
@@ -128,16 +138,21 @@ const FilterStatus = () => {
                                                                     <td className='border border-gray-300 text-center  p-2'>{new Date(items.startDate).toLocaleDateString()}</td>
                                                                     <td className='border border-gray-300 text-center  p-2'>{new Date(items.endDate).toLocaleDateString()}</td>
                                                                     <td className='border border-gray-300 text-center  p-2'>{items.total_budget}</td>
-                                                                    <td className='border border-gray-300 text-center  p-2'>{items.installment}</td>
-                                                                    <td className='border border-gray-300 text-center  p-2'>{(items?.total_budget) - (items?.installment[0])}</td>
+                                                                    <td className='border border-gray-300 text-center  p-2'>{items.installment[0] || 0}</td>
+                                                                    <td className='border border-gray-300 text-center  p-2'>{items.installment[1] || 0}</td>
+                                                                    <td className='border border-gray-300 text-center  p-2'>{items.installment[2] || 0}</td>
+                                                                    <td className='border border-gray-300 text-center  p-2'>{(items?.total_budget) - (items?.installment?.reduce((sum, val) => sum + (val || 0), 0))}</td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
                                                     </div>
-                                                </div>) : ((status === 'Client' || status === 'Student') && updateUser === items._id &&
+                                                </div>) : ((status === 'Client' || status === 'Student') && updateUser === items._id ? (
 
-                                                    <UpdateClient id={items._id} item={items} setUser={setUser} setUpdateUser={setUpdateUser} />
+                                                    <UpdateClient id={items._id} item={items} setUser={setUser} setUpdateUser={setUpdateUser} />) :
 
+                                                    (status === 'Follow Up') && updateUser === items._id &&
+                                                    <UpdateFollowup id={items._id} item={items} setUser={setUser} setUpdateUser={setUpdateUser}
+                                                    />
                                             )
                                     }
                                 </tr>

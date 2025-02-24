@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { useAddUserMutation } from '../redux/api/userApi';
+
 import { toast } from 'react-toastify';
+import { useAddUserMutation } from '../redux/Api/UserApi';
 
 const InputForm = () => {
     const [values, setValues] = useState({
@@ -78,14 +79,14 @@ const InputForm = () => {
                                         name='service'
                                         onChange={handleChange}
                                         className='border border-gray-300 rounded-lg p-2 focus:ring focus:ring-red-300 outline-none'>
-                                        <option value=''>Select Service</option>
+                                        <option value='' selected disabled >Select Service</option>
+                                        <option value='App Development'>App Development</option>
+                                        <option value='Web Development'>Web Development</option>
+                                        <option value='Digital Marketing'>Digital Marketing</option>
+                                        <option value='Ui/Ux Design'>UI/UX Design</option>
                                         <option value='MERN Stack'>MERN Stack</option>
                                         <option value='Python Django'>Python Django</option>
                                         <option value='Flutter'>Flutter</option>
-                                        <option value='Digital Marketing'>Digital Marketing</option>
-                                        <option value='Web Development'>Web Development</option>
-                                        <option value='App Development'>App Development</option>
-                                        <option value='Ui/Ux Design'>UI/UX Design</option>
                                     </select>
                                 </div>
                             </div>

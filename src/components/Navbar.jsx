@@ -7,7 +7,7 @@ const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <nav className='sticky top-0 bg-[COLOR.secondary] text-black shadow-md z-10 px-20 py-4'>
+        <nav className={`sticky top-0 bg-white text-black shadow-md z-10 px-20 py-4`}>
 
             {/* Parent Flex Container */}
             <div className='flex justify-between items-center
