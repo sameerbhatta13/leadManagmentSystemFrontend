@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
-const UpdateClient = ({ item, id }) => {
-    console.log('end DATE', item.endDate)
+const UpdateClient = ({ item, id, setUser, setUpdateUser }) => {
+    //another way of doing enddate is new Date(endDate).toISOString().split('T')[0]
+    // console.log('end DATE', item.endDate)
+    const popupRef = useRef(null)
+
     const [updateClient, setUpdateClient] = useState({
         name: '',
         email: '',
@@ -24,17 +27,31 @@ const UpdateClient = ({ item, id }) => {
     useEffect(() => {
         if (item) {
             setUpdateClient({
-                name: item.name,
-                email: item.email,
-                phone: item.phone,
-                total_budget: item.total_budget,
-                endDate: item.endDate,
-                remarks: item.remarks
+                name: item.name || '',
+                email: item.email || '',
+                phone: item.phone || '',
+                total_budget: item.total_budget || '',
+                endDate: item.endDate ? item.endDate.split('T')[0] : '',
+                remarks: item.remarks || ''
 
             })
         }
 
     }, [item])
+
+    useEffect(() => {
+        const handleClick = (event) => {
+            if (popupRef.current && !popupRef.current.contains(event.target)) {
+                setUpdateUser('')
+            }
+        }
+
+        document.addEventListener('mousedown', handleClick)
+
+        return () => {
+            document.removeEventListener('mousedown', handleClick)
+        }
+    }, [])
 
 
 
@@ -43,7 +60,7 @@ const UpdateClient = ({ item, id }) => {
 
 
             <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-transparent">
-                <div className="bg-white p-6 rounded-lg shadow-lg flex flex-col">
+                <div ref={popupRef} className="bg-white p-6 rounded-lg shadow-lg flex flex-col">
                     <h1 className='text-3xl font-bold text-center text-gray-800 mb-9'>Update Student/Client</h1>
                     <form onSubmit={handleSubmit} className='space-y-5 rounded-lg'>
                         <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>

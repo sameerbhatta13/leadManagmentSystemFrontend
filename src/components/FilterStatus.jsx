@@ -19,6 +19,20 @@ const FilterStatus = () => {
 
     const popupRef = useRef(null)
 
+    useEffect(() => {
+        const handleClick = (event) => {
+            if (popupRef.current && !popupRef.current.contains(event.target)) {
+                setUser('')
+                setUpdateUser('')
+            }
+        }
+        document.addEventListener('mousedown', handleClick)
+        return () => {
+            document.removeEventListener('mousedown', handleClick)
+        }
+
+    }, [])
+
 
 
     const data = [
@@ -97,7 +111,7 @@ const FilterStatus = () => {
                                         ((status === 'Client' || status === 'Student') && user === items._id) ?
                                             (
                                                 <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-transparent">
-                                                    <div className="bg-white p-6 rounded-lg shadow-lg flex flex-col">
+                                                    <div ref={popupRef} className="bg-white p-6 rounded-lg shadow-lg flex flex-col">
                                                         <table className='table-auto border-collapse border border-gray-400 w-full p-2  my-6'>
                                                             <thead>
                                                                 <tr>
@@ -121,13 +135,9 @@ const FilterStatus = () => {
                                                         </table>
                                                     </div>
                                                 </div>) : ((status === 'Client' || status === 'Student') && updateUser === items._id &&
-                                                    <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-transparent">
-                                                        <div className="bg-white p-6 rounded-lg shadow-lg flex flex-col">
-                                                            <UpdateClient id={items._id} item={items} />
 
+                                                    <UpdateClient id={items._id} item={items} setUser={setUser} setUpdateUser={setUpdateUser} />
 
-                                                        </div>
-                                                    </div>
                                             )
                                     }
                                 </tr>
