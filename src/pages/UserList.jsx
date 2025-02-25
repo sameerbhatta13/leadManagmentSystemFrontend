@@ -17,7 +17,7 @@ const UserList = () => {
 
     const users = UserData?.data || null
 
-    const filterData = users?.filter(item => item.status.toLowerCase().includes(search.toLowerCase()) || item.name.toLowerCase().includes(search.toLowerCase()) || item.phone.includes(search()))
+    const filterData = users?.filter(item => item?.status.toLowerCase().includes(search.toLowerCase()) || item?.name.toLowerCase().includes(search.toLowerCase()) || String(item?.phone).includes(search))
 
 
     useEffect(() => {
@@ -42,7 +42,7 @@ const UserList = () => {
             </div>
             <div className='bg-gray-50 flex justify-center items-center px-14'>
                 {filterData?.length > 0 ? (
-                    <table className='table-auto border-seperated border border-gray-400 w-full p-2 mx-11 my-6 rounded-lg overflow-hidden'>
+                    <table className='table-auto border-seperated border border-gray-400 w-full p-2  my-6 rounded-lg overflow-hidden'>
                         <thead >
                             <tr >
                                 <th className='border border-gray-300 p-2 '>S.N</th>
