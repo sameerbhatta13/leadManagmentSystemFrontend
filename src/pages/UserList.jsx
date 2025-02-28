@@ -36,7 +36,7 @@ const UserList = () => {
                 <input
                     type="text"
                     placeholder="Search by status..."
-                    className="w-full max-w-md p-2 border rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                    className="w-full max-w-md p-2 border rounded-lg shadow-md bg-white focus:outline-none focus:ring-2 focus:ring-indigo-400"
                     onChange={(e) => setSearch(e.target.value)}
                 />
             </div>

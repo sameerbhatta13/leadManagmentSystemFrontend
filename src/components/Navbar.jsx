@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { COLOR } from '../constast/constant';
+
 import { Link, NavLink } from 'react-router';
 import { FiMenu, FiX } from 'react-icons/fi';
 

@@ -9,6 +9,13 @@ import FilterStatus from './src/components/FilterStatus'
 import Login from './src/pages/Login'
 import Dashboard from './src/components/Dashboard'
 import Protected from './src/components/Protected'
+import DashboarLayout from './src/components/DashboarLayout'
+import ActiveLead from './src/manageLeads/ActiveLead'
+import FolloupLead from './src/manageLeads/FolloupLead'
+import ClientLead from './src/manageLeads/ClientLead'
+import StudentLead from './src/manageLeads/StudentLead'
+import CancelLead from './src/manageLeads/CancelLead'
+import ServiceList from './src/service/ServiceList'
 
 const MyRoutes = () => {
     return (
@@ -18,12 +25,20 @@ const MyRoutes = () => {
                 <Route path='/' element={<MainLayout />}>
                     <Route path='/login' element={<Login />} />
                     <Route path='/about' element={<UpdateStatus />} />
-                    <Route path='/services' element={<UserList />} />
+                    <Route path='/service' element={<UserList />} />
                     <Route path='/userstate' element={<FilterStatus />} />
-                    <Route path='/inputform' element={<InputForm />} />
-
                 </Route>
-                <Route path='/dashboard' element={<Protected Cmp={Dashboard} />} />
+
+                <Route path='/inputform' element={<InputForm />} />
+                <Route path='' element={<Protected Cmp={DashboarLayout} />} >
+                    <Route path='/dashboard' element={<Dashboard />} />
+                    <Route path='/active' element={<ActiveLead />} />
+                    <Route path='/followup' element={<FolloupLead />} />
+                    <Route path='/client' element={<ClientLead />} />
+                    <Route path='/student' element={<StudentLead />} />
+                    <Route path='/cancel' element={<CancelLead />} />
+                    <Route path='/services' element={<ServiceList />} />
+                </Route>
             </Routes>
 
         </>

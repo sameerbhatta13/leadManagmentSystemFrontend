@@ -2,14 +2,18 @@ import React, { useState } from 'react';
 
 import { toast } from 'react-toastify';
 import { useAddUserMutation } from '../redux/Api/UserApi';
+import { useGetServiceQuery } from '../redux/Api/Service';
 
 const InputForm = () => {
+    const { data: service } = useGetServiceQuery()
+    console.log(service)
     const [values, setValues] = useState({
         name: '',
         email: '',
         phone: '',
-        service: ''
+        service: ""
     });
+    console.log(values)
 
     const [addUser, { isError, error }] = useAddUserMutation();
     console.log(isError, error);
@@ -20,6 +24,8 @@ const InputForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log(values)
+
         try {
             const response = await addUser(values);
             if (response.ok) {
@@ -80,13 +86,13 @@ const InputForm = () => {
                                         onChange={handleChange}
                                         className='border border-gray-300 rounded-lg p-2 focus:ring focus:ring-red-300 outline-none'>
                                         <option value='' selected disabled >Select Service</option>
-                                        <option value='App Development'>App Development</option>
-                                        <option value='Web Development'>Web Development</option>
-                                        <option value='Digital Marketing'>Digital Marketing</option>
-                                        <option value='Ui/Ux Design'>UI/UX Design</option>
-                                        <option value='MERN Stack'>MERN Stack</option>
-                                        <option value='Python Django'>Python Django</option>
-                                        <option value='Flutter'>Flutter</option>
+                                        {
+                                            service?.data?.map((service, index) => (
+                                                <option value={`${service?._id}`}>{service.title}</option>
+
+                                            ))
+                                        }
+
                                     </select>
                                 </div>
                             </div>

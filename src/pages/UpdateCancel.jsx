@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { useGetUsersQuery, useUpdateUserMutation } from '../redux/api/userApi'
+import { useGetUsersQuery, useUpdateUserMutation } from '../redux/Api/UserApi'
+
 
 const UpdateCancel = ({ id, status, setSelectedValue }) => {
     const [cancel, setCancel] = useState({
