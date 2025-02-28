@@ -14,18 +14,18 @@ const Protected = ({ Cmp }) => {
                 const currTime = Date.now() / 1000
                 if (currTime > exp) {
                     localStorage.removeItem('admin')
-                    navigate('/login')
+                    navigate('/')
                 }
 
             } catch (error) {
                 console.error('Invalid Token', error.message)
                 localStorage.removeItem('admin')
-                navigate('/login')
+                navigate('/')
 
             }
         }
         else {
-            navigate('/login')
+            navigate('/')
 
         }
 

@@ -12,7 +12,7 @@ export const ServiceApi = createApi({
             query: (data) => ({
                 url: '/service',
                 method: 'POST',
-                bodyd: data
+                body: data
             })
         }),
         getService: builder.query({

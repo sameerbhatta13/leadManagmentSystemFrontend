@@ -55,7 +55,7 @@ const Dashboard = () => {
                 <div className='flex flex-row justify-between my-2 mx-4'>
                     <p className='font-semibold my-2'>Total Number of Leads: <b>{data?.data.length}</b> </p>
 
-                    <NavLink to='/inputform'>  <button className='bg-[#679E02] flex flex-row p-2 mr-14 gap-1 rounded-lg font-bold text-white transform transition-transform duration-300 hover:scale-105'> <MdAddCircle className='mt-1 ' />
+                    <NavLink to='/inputform'>  <button className='bg-[#679E02] flex flex-row p-2 mr-6 gap-1 rounded-lg font-bold text-white transform transition-transform duration-300 hover:scale-105'> <MdAddCircle className='mt-1 ' />
                         Add Member </button></NavLink>
 
                 </div>

@@ -7,7 +7,7 @@ import AddService from './AddService';
 import UpdateService from './UpdateService';
 
 const ServiceList = () => {
-    const [updateService, setUpdateService] = useState('')
+    const [updateService, setUpdateService] = useState()
     const [addService, setAddService] = useState('')
     console.log("addservice", addService)
 
@@ -19,13 +19,13 @@ const ServiceList = () => {
         <>
 
             <div className='flex justify-end mt-9 mr-6'>
-                <button onClick={(e) => setAddService(e.target.value)} className=' flex flex-row border rounded-lg p-2 gap-2' value='addservice'><MdLibraryAdd className='my-1' />Add Service</button>
+                <button onClick={() => setAddService('addservice')} className=' flex flex-row border rounded-lg p-2 gap-2' ><MdLibraryAdd className='my-1' />Add Service</button>
             </div>
             <table className='table-auto border-separate border-gray-400 w-full p-2 my-6 rounded-lg overflow-hidden'>
                 <thead >
                     <tr>
                         <th className='border border-gray-300 p-2'>S.N</th>
-                        <th className='border border-gray-300 p-2'>title</th>
+                        <th className='border border-gray-300 p-2'>Title</th>
                         <th className='border border-gray-300 p-2'>Created At</th>
                         <th className='border border-gray-300 p-2'>Action</th>
 

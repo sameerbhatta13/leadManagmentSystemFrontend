@@ -1,28 +1,49 @@
 import React, { useEffect, useRef } from 'react'
-
+import { useForm } from 'react-hook-form'
 const UpdateService = ({ setUpdateService }) => {
 
 
-    const popupRef = useRef()
 
-    useEffect(() => {
-        const handleClick = (e) => {
-            if (popupRef.current && !popupRef.current.contains(e.target))
-                setUpdateService('')
+    const sendData = (data) => {
+        try {
+
+        } catch (error) {
+
         }
-        document.addEventListener('mousedown', handleClick)
-        return () => {
-            document.removeEventListener('mousedown', handleClick)
-        }
-    }, [])
+    }
+
 
     return (
         <>
-            <div className="fixed top-0 left-0  w-full h-full flex justify-center items-center  bg-black/50 ">
-                <div ref={popupRef} className="bg-white p-6 flex rounded-lg shadow-lg">
-                    <h1>Update the  Service</h1>
-                </div>
-            </div>
+            <div className="fixed top-0 left-0  w-full h-full flex justify-center items-center bg-black/50 ">
+                <div className="bg-white p-6 flex rounded-lg shadow-lg">
+                    <form action="" onSubmit={handleSubmit(sendData)} className='w-full ' noValidate>
+                        <div className='flex flex-col text-start'>
+                            <h1 className='font-semibold'>Add More Service</h1>
+
+                            <label htmlFor="">Title</label>
+                            <input type="text" placeholder='Enter The Service Tilte' className='my-2 border p-1 rounded-lg' {...register('title', {
+                                required: {
+                                    value: true,
+                                    message: '* This field is required. *'
+                                }
+                            })} />
+                            <p className='text-red-600'>{errors?.title?.message}</p>
+                            <div className='flex gap-3.5'>
+                                <button onClick={() => setUpdateService()} className='rounded-lg border p-2'>
+                                    Cancel
+                                </button>
+                                <button className='rounded-lg border p-2' >
+                                    Update Service
+                                </button>
+                            </div>
+                        </div>
+
+
+                    </form>
+                </div >
+            </div >
+
 
         </>
     )

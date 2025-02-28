@@ -23,10 +23,10 @@ const MyRoutes = () => {
 
             <Routes>
                 <Route path='/' element={<MainLayout />}>
-                    <Route path='/login' element={<Login />} />
+                    <Route path='/' element={<Login />} />
                     <Route path='/about' element={<UpdateStatus />} />
                     <Route path='/service' element={<UserList />} />
-                    <Route path='/userstate' element={<FilterStatus />} />
+                    <Route path='/userstate' element={<Protected Cmp={UserList} />} />
                 </Route>
 
                 <Route path='/inputform' element={<InputForm />} />
