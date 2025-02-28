@@ -55,7 +55,7 @@ const ServiceList = () => {
 
                                 {
                                     (updateService === items._id) &&
-                                    <UpdateService setUpdateService={setUpdateService} />
+                                    <UpdateService id={items._id} item={items} setUpdateService={setUpdateService} />
                                 }
                             </tr>
 
