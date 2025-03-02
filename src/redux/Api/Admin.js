@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { APP_URL } from '../../../config.js'
 
-
+const token = localStorage.getItem('admin')
 export const AdminApi = createApi({
     reducerPath: 'adminapi',
     baseQuery: fetchBaseQuery({
@@ -14,8 +14,19 @@ export const AdminApi = createApi({
                 method: 'POST',
                 body: data
             })
+        }),
+        getAdmin: builder.query({
+            query: () => ({
+                url: '/admin',
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+
+
+            })
         })
     })
 })
 
-export const { useSigninAdminMutation } = AdminApi
+export const { useSigninAdminMutation, useGetAdminQuery } = AdminApi

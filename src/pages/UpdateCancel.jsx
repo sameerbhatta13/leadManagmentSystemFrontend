@@ -19,7 +19,7 @@ const UpdateCancel = ({ id, status, setSelectedValue }) => {
     const [updateUser, { isError, error }] = useUpdateUserMutation()
 
     const { refetch } = useGetUsersQuery()
-    console.log(status)
+
     const handleSubmit = async (e) => {
         e.preventDefault()
 

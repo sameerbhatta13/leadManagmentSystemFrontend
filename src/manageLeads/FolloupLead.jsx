@@ -1,12 +1,32 @@
-import React from 'react'
-import { useGetUsersQuery } from '../redux/Api/UserApi'
+import React, { useState } from 'react'
+import { useGetUsersQuery, useUpdateUserMutation } from '../redux/Api/UserApi'
 import { FaEye } from "react-icons/fa";
+import { MdCancel } from "react-icons/md";
 import { MdModeEditOutline } from "react-icons/md";
+import UpdateFollowup from '../updates/UpdateFollowup';
 
 
 
 const FolloupLead = () => {
-    const { data: folloupUser } = useGetUsersQuery()
+    const [user, setUser] = useState('')
+
+    const [updateUser, setUpdateUser] = useState('')
+
+    const { data: folloupUser, refetch } = useGetUsersQuery()
+
+    const [updateCancel] = useUpdateUserMutation()
+
+    const handelCancel = async (id) => {
+        try {
+            const response = await updateCancel({ id, data: { status: 'Cancel' } })
+            console.log(response)
+            refetch()
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+
 
 
     return (
@@ -33,15 +53,26 @@ const FolloupLead = () => {
                                 <td className='border border-gray-300 p-2'>{items.name}</td>
                                 <td className='border border-gray-300 p-2'>{items.email}</td>
                                 <td className='border border-gray-300 p-2'>{items.phone}</td>
+
                                 <td className='border border-gray-300 p-2'>{new Date(items.followUp).toLocaleDateString()}</td>
                                 <td className='border border-gray-300 p-2 '>
                                     <div className='flex justify-center items-center gap-2'>
-                                        <button className='hover:scale-105' onClick={() => setUser(items._id)}><FaEye /></button>
 
                                         <button className='hover:scale-105' onClick={() => setUpdateUser(items._id)}><MdModeEditOutline /></button>
+                                        {/* <button className='hover:scale-105' onClick={() => setUser(items._id)}><FaEye /></button> */}
+                                        <button className='hover:scale-105' value='cancel' onClick={() => {
+                                            handelCancel(items._id)
+                                        }}
+                                        ><MdCancel /></button>
                                     </div>
 
                                 </td>
+                                {
+                                    items.status === 'Follow Up' && updateUser == items._id &&
+                                    <UpdateFollowup id={items._id} item={items} setUser={setUser} setUpdateUser={setUpdateUser} />
+                                }
+
+
                             </tr>
 
                         })

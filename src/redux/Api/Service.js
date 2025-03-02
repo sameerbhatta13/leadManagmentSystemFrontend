@@ -30,7 +30,7 @@ export const ServiceApi = createApi({
             })
         }),
         deleteService: builder.mutation({
-            query: (id) => ({
+            query: ({ id }) => ({
                 url: `/service/${id}`,
                 method: 'DELETE'
             })
@@ -39,4 +39,4 @@ export const ServiceApi = createApi({
     })
 })
 
-export const { useAddServiceMutation, useGetServiceQuery, useUpdateServiceMutation } = ServiceApi
+export const { useAddServiceMutation, useGetServiceQuery, useUpdateServiceMutation, useDeleteServiceMutation } = ServiceApi

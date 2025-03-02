@@ -1,15 +1,19 @@
 import React, { useState } from 'react'
-import { useSigninAdminMutation } from '../redux/Api/Admin'
+import { useGetAdminQuery, useSigninAdminMutation } from '../redux/Api/Admin'
 import { NavLink, useNavigate } from 'react-router'
 import { toast } from 'react-toastify'
+import { useDispatch } from 'react-redux'
+
 
 const Login = () => {
     const navigate = useNavigate()
+
 
     const [loginData, setLoginData] = useState({
         email: '',
         password: ''
     })
+    const { refetch } = useGetAdminQuery()
 
     const [loginAdmin, { isError, error }] = useSigninAdminMutation()
 
@@ -23,6 +27,8 @@ const Login = () => {
             const response = await loginAdmin(loginData)
             console.log(response)
             localStorage.setItem('admin', response?.data?.data)
+            // dispatch(setAdminProfile(response?.data?.data))
+            refetch()
             toast.success('logged successfully')
             navigate('/dashboard')
 

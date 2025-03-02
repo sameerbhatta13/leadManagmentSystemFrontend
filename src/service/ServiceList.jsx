@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useAddServiceMutation, useGetServiceQuery } from '../redux/Api/Service'
+import { useDeleteServiceMutation, useGetServiceQuery } from '../redux/Api/Service'
 import { MdModeEditOutline } from "react-icons/md";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { MdLibraryAdd } from "react-icons/md";
@@ -14,7 +14,19 @@ const ServiceList = () => {
     console.log("updateService", updateService)
     const { data: service, refetch } = useGetServiceQuery()
 
-    const [add, { }] = useAddServiceMutation()
+    const [deleteService] = useDeleteServiceMutation()
+
+    const handleSubmit = async (id) => {
+        try {
+            const response = await deleteService({ id })
+            console.log("response", response)
+            refetch()
+        } catch (error) {
+            console.log(error)
+
+        }
+    }
+
     return (
         <>
 
@@ -43,7 +55,7 @@ const ServiceList = () => {
                                 <td className='border border-gray-300 p-2 '>
                                     <div className='flex justify-center items-center gap-2'>
                                         <button className='hover:scale-105' onClick={() => setUpdateService(items._id)}><MdModeEditOutline /></button>
-                                        <button className='hover:scale-105' onClick={() => setUpdateService(items._id)}><RiDeleteBin5Line /></button>
+                                        <button className='hover:scale-105' onClick={() => handleSubmit(items._id)}><RiDeleteBin5Line /></button>
                                     </div>
 
                                 </td>

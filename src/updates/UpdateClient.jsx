@@ -37,19 +37,25 @@ const UpdateClient = ({ item, id, setUser, setUpdateUser }) => {
                     email: updateClient.email,
                     phone: updateClient.phone,
                     total_budget: updateClient.total_budget,
-                    installment: [updateClient.first_installment, updateClient.second_installment,
-                    updateClient.third_installment
+                    installment: [Number(updateClient.first_installment), Number(updateClient.second_installment),
+                    Number(updateClient.third_installment)
                     ],
                     endDate: updateClient.endDate,
                     remarks: updateClient.remarks
 
                 }
             })
+            console.log(response?.data?.data.status)
             console.log("response", response)
+            if (response?.data?.data?.status === 'Student') {
+                toast.success('Student updated successfully');
+            } else if (response?.data?.data?.status === 'Client') {
+                toast.success('Client updated successfully');
+
+            }
+            setUpdateClient({});  // Reset form
+            setUpdateUser(null);
             refetch()
-            response.data.status === 'Student' ? toast.success('student updated successfully') : toast.success('Client updated successfully')
-
-
         } catch (error) {
             toast.error(error)
 
@@ -90,6 +96,11 @@ const UpdateClient = ({ item, id, setUser, setUpdateUser }) => {
     }, [])
 
 
+    const handleClose = () => {
+        setUpdateClient({});  // Reset form
+        setUpdateUser(null);
+
+    }
 
     return (
         <>
@@ -97,7 +108,14 @@ const UpdateClient = ({ item, id, setUser, setUpdateUser }) => {
 
             <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center  bg-black/60 ">
                 <div ref={popupRef} className="bg-white p-6 rounded-lg shadow-lg flex flex-col">
-                    <h1 className='text-3xl font-bold text-center text-gray-800 mb-9'>Update Student/Client</h1>
+                    <div className='flex flex-row justify-between'>
+
+                        <h1 className='text-3xl font-bold text-center text-gray-800 mb-9'>Update Student/Client</h1>
+
+                        <button onClick={handleClose} className='text-red-500 text-3xl -mt-5'>X</button>
+
+                    </div>
+
                     <form onSubmit={handleSubmit} className='space-y-5 rounded-lg'>
                         <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
                             <div className='flex flex-col'>
