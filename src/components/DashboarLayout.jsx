@@ -27,14 +27,14 @@ const Dashboard = () => {
     }, {})
 
     const { data: admin, refetch: adminrefetch } = useGetAdminQuery()
-    // console.log("admin", admin)
+    console.log("admin", admin)
 
     const handleLogout = () => {
-        // dispatch(logout())
-        // // localStorage.removeItem('admin')
-        // // adminrefetch()
-        // navigate('/')
-        // toast.info('logged Out')
+        dispatch(logout())
+        // localStorage.removeItem('admin')
+        // adminrefetch()
+        navigate('/')
+        toast.info('logged Out')
     }
 
 
@@ -48,7 +48,9 @@ const Dashboard = () => {
         document.addEventListener("click", handleClickOutside);
         return () => document.removeEventListener("click", handleClickOutside);
     }, []);
-
+    useEffect(() => {
+        adminrefetch()
+    }, [])
 
 
     return (

@@ -29,7 +29,7 @@ const Login = () => {
             localStorage.setItem('admin', response?.data?.data)
             // dispatch(setAdminProfile(response?.data?.data))
             refetch()
-            toast.success('logged successfully')
+            // toast.success('logged successfully')
             navigate('/dashboard')
 
         } catch (error) {

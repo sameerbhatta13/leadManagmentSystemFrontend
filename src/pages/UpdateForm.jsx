@@ -16,7 +16,15 @@ const UpdateForm = ({ id, status, setSelectedValue }) => {
     const [updateUser, { isError, error }] = useUpdateUserMutation()
 
     const handleChange = (e) => {
-        setUpdateForm({ ...updateForm, [e.target.name]: e.target.value })
+        const { name, value } = e.target
+        setUpdateForm((prev) => ({
+            ...prev,
+            [name]: name === 'installment' ? [Number(value)] : value
+
+        }))
+
+
+        // setUpdateForm({ ...updateForm, [e.target.name]: e.target.value })
 
     }
 
@@ -25,13 +33,17 @@ const UpdateForm = ({ id, status, setSelectedValue }) => {
 
         try {
             const updateData = await updateUser({ id: id, data: updateForm })
-            status === 'Client'
-                ? toast.success('client is added')
-                : status === 'Student'
-                    ? toast.success('student is added')
-                    : toast.success('followup is canceled')
-            refetch()
-            setSelectedValue('')
+            console.log("first", updateData)
+
+            if (updateData.ok) {
+                status === 'Client'
+                    ? toast.success('client is added')
+                    : status === 'Student'
+                        ? toast.success('student is added')
+                        : toast.success('followup is canceled')
+                refetch()
+                setSelectedValue('')
+            }
         } catch (error) {
 
         }

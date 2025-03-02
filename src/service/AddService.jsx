@@ -33,7 +33,7 @@ const AddService = ({ setAddService }) => {
                         <div className='flex flex-col text-start'>
                             <h1 className='font-semibold'>Add More Service</h1>
 
-                            <label htmlFor="">Title</label>
+                            <label htmlFor="" className='font-bold'>Title</label>
                             <input type="text" placeholder='Enter The Service Tilte' className='my-2 border p-1 rounded-lg' {...register('title', {
                                 required: {
                                     value: true,
@@ -42,10 +42,10 @@ const AddService = ({ setAddService }) => {
                             })} />
                             <p className='text-red-600'>{errors?.title?.message}</p>
                             <div className='flex gap-3.5'>
-                                <button onClick={() => setAddService()} className='rounded-lg border p-2'>
+                                <button onClick={() => setAddService()} className='rounded-lg border p-2 bg-red-600 text-white'>
                                     Cancel
                                 </button>
-                                <button className='rounded-lg border p-2' >
+                                <button className='rounded-lg border p-2 bg-green-600 text-white' >
                                     Add Service
                                 </button>
                             </div>
