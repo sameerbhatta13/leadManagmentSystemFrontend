@@ -47,7 +47,7 @@ export const AdminApi = createApi({
             query: ({ id, data }) => ({
                 url: `/admin/${id}`,
                 method: 'PUT',
-                body: { data }
+                body: data
             })
         })
     })

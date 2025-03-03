@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import MainLayout from './src/components/MainLayout'
 import About from './src/pages/About'
 import InputForm from './src/pages/InputForm'
@@ -20,12 +20,14 @@ import Otp from './src/pages/Otp'
 import UpdateAdmin from './src/pages/UpdateAdmin'
 
 const MyRoutes = () => {
+
+    const login = localStorage.getItem('admin')
     return (
         <>
 
             <Routes>
                 <Route path='/' element={<MainLayout />}>
-                    <Route path='/' element={<Login />} />
+                    <Route path='/' element={login ? <Navigate to='/dashboard ' /> : <Login />} />
                     <Route path='/about' element={<UpdateStatus />} />
                     <Route path='/service' element={<UserList />} />
                     <Route path='/userstate' element={<Protected Cmp={UserList} />} />

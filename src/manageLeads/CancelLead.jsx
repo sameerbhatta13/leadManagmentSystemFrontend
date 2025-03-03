@@ -79,7 +79,7 @@ const CancelLead = () => {
                     <h1>Are you sure ??</h1>
                     <div className='flex flex-row gap-3.5 my-5'>
 
-                        <button className='rounded-lg border p-2 bg-amber-50'>No</button>
+                        <button className='rounded-lg border p-2 bg-amber-50' onClick={() => setIsModalOpen(false)}>No</button>
                         <button className='rounded-lg border p-2 bg-green-200' onClick={handleDelete} >Yes</button>
                     </div>
                 </Modal>

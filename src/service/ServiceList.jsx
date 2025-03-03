@@ -5,22 +5,31 @@ import { RiDeleteBin5Line } from "react-icons/ri";
 import { MdLibraryAdd } from "react-icons/md";
 import AddService from './AddService';
 import UpdateService from './UpdateService';
+import Modal from 'react-modal';
 
 const ServiceList = () => {
     const [updateService, setUpdateService] = useState()
     const [addService, setAddService] = useState('')
-    console.log("addservice", addService)
+    const [id, setId] = useState()
+    const [isModalOpen, setIsModalOpen] = useState(false)
+
+
+    // console.log("addservice", addService)
 
     console.log("updateService", updateService)
     const { data: service, refetch } = useGetServiceQuery()
 
     const [deleteService] = useDeleteServiceMutation()
 
-    const handleSubmit = async (id) => {
+
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
         try {
-            const response = await deleteService({ id })
+            const response = await deleteService({ id: id })
             console.log("response", response)
             refetch()
+            setIsModalOpen(false)
         } catch (error) {
             console.log(error)
 
@@ -55,7 +64,10 @@ const ServiceList = () => {
                                 <td className='border border-gray-300 p-2 '>
                                     <div className='flex justify-center items-center gap-2'>
                                         <button className='hover:scale-105' onClick={() => setUpdateService(items._id)}><MdModeEditOutline /></button>
-                                        <button className='hover:scale-105' onClick={() => handleSubmit(items._id)}><RiDeleteBin5Line /></button>
+                                        <button className='hover:scale-105' onClick={() => {
+                                            setIsModalOpen(true)
+                                            setId(items._id)
+                                        }}><RiDeleteBin5Line /></button>
                                     </div>
 
                                 </td>
@@ -74,6 +86,16 @@ const ServiceList = () => {
                         })
                     }
                 </tbody>
+                <Modal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)} className='bg-white  relative p-6 rounded-lg shadow-lg w-96 mt-48 mx-auto'>
+                    <h1>Are you sure ??</h1>
+                    <div className='flex flex-row gap-3.5 my-5'>
+
+                        <button className='rounded-lg border p-2 bg-amber-50' onClick={() => setIsModalOpen(false)}>No</button>
+                        <button className='rounded-lg border p-2 bg-green-200' onClick={handleSubmit} >Yes</button>
+                    </div>
+                </Modal>
+
+
             </table>
         </>
     )

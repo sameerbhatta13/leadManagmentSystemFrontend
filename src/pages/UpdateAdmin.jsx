@@ -27,12 +27,13 @@ const UpdateAdmin = () => {
         }
         else {
             try {
-                const response = await updateAdmin({ id: id, data: password })
+                const response = await updateAdmin({ id: id, data: { password } })
                 console.log(password)
                 console.log("first", response)
 
-                if (response?.ok) {
-                    // navigate('/dashboard')
+                if (response?.data?.data) {
+                    localStorage.removeItem('Id')
+                    navigate('/')
                 }
                 else {
 
