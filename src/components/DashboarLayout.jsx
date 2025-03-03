@@ -27,7 +27,7 @@ const Dashboard = () => {
     }, {})
 
     const { data: admin, refetch: adminrefetch } = useGetAdminQuery()
-    console.log("admin", admin)
+    // console.log("admin", admin)
 
     const handleLogout = () => {
         dispatch(logout())
@@ -51,6 +51,10 @@ const Dashboard = () => {
     useEffect(() => {
         adminrefetch()
     }, [])
+
+    useEffect(() => {
+        refetch()
+    }, [admin])
 
 
     return (

@@ -4,10 +4,11 @@ import { FaEye } from "react-icons/fa";
 import { MdCancel } from "react-icons/md";
 import { MdModeEditOutline } from "react-icons/md";
 import UpdateFollowup from '../updates/UpdateFollowup';
-
+import Modal from 'react-modal'
 
 
 const FolloupLead = () => {
+    const [isModalOpen, setIsModalOpen] = useState(false)
     const [user, setUser] = useState('')
 
     const [updateUser, setUpdateUser] = useState('')
@@ -16,11 +17,15 @@ const FolloupLead = () => {
 
     const [updateCancel] = useUpdateUserMutation()
 
-    const handelCancel = async (id) => {
+
+
+    const handelCancel = async (e) => {
+        e.preventDefault()
         try {
-            const response = await updateCancel({ id, data: { status: 'Cancel' } })
+            const response = await updateCancel({ id: user, data: { status: 'Cancel' } })
             console.log(response)
             refetch()
+            setIsModalOpen(false)
         } catch (error) {
             console.log(error)
         }
@@ -38,7 +43,7 @@ const FolloupLead = () => {
                         <th className='border border-gray-300 p-2'>Name</th>
                         <th className='border border-gray-300 p-2'>Email</th>
                         <th className='border border-gray-300 p-2'>Phone</th>
-                        <th className='border border-gray-300 p-2'>followup date</th>
+                        <th className='border border-gray-300 p-2'>Followup Date</th>
                         <th className='border border-gray-300 p-2'>Action</th>
 
                     </tr>
@@ -61,7 +66,9 @@ const FolloupLead = () => {
                                         <button className='hover:scale-105' onClick={() => setUpdateUser(items._id)}><MdModeEditOutline /></button>
                                         {/* <button className='hover:scale-105' onClick={() => setUser(items._id)}><FaEye /></button> */}
                                         <button className='hover:scale-105' value='cancel' onClick={() => {
-                                            handelCancel(items._id)
+                                            // handelCancel(items._id)
+                                            setUser(items._id)
+                                            setIsModalOpen(true)
                                         }}
                                         ><MdCancel /></button>
                                     </div>
@@ -78,6 +85,15 @@ const FolloupLead = () => {
                         })
                     }
                 </tbody>
+
+                <Modal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)} className='bg-white  relative p-6 rounded-lg shadow-lg w-96 mt-48 mx-auto'>
+                    <h1>Are you sure ??</h1>
+                    <div className='flex flex-row gap-3.5 my-5'>
+
+                        <button className='rounded-lg border p-2 bg-amber-50' onClick={() => setIsModalOpen(false)}>No</button>
+                        <button className='rounded-lg border p-2 bg-green-200' onClick={handelCancel} >Yes</button>
+                    </div>
+                </Modal>
             </table>
 
         </>

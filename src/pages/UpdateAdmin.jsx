@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router';
+import { data, useNavigate } from 'react-router';
 import { useUpdateAdminMutation } from '../redux/Api/Admin';
 import { toast } from 'react-toastify';
 
@@ -9,25 +9,38 @@ const UpdateAdmin = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('')
 
-    const [updateAdmin] = useUpdateAdminMutation()
+
+    // console.log(password)
+
+    const [updateAdmin, { isError }] = useUpdateAdminMutation()
     const id = localStorage.getItem('Id')
+
 
     const handleUpdatePassword = async (e) => {
         e.preventDefault()
 
+        console.log(id)
+        console.log(password)
+
         if (password !== confirmPassword) {
-            toast.error('password does not match')
+            setErrorMessage('password does not match')
         }
-        try {
-            const response = await updateAdmin({ id: id, data: password })
+        else {
+            try {
+                const response = await updateAdmin({ id: id, data: password })
+                console.log(password)
+                console.log("first", response)
 
-            console.log("first", response)
+                if (response?.ok) {
+                    // navigate('/dashboard')
+                }
+                else {
 
-            if (response?.data?.data) {
-                navigate('/dashboard')
+                }
+            } catch (error) {
+                console.log(error)
+
             }
-        } catch (error) {
-            console.log(error)
 
         }
 
@@ -41,11 +54,15 @@ const UpdateAdmin = () => {
                         <div>
                             <label className="block text-gray-700 font-medium mb-1">New Password</label>
                             <input
-                                type="password"
+                                type="password "
                                 className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 placeholder="Enter new password"
+                                name='password'
                                 value={password}
-                                onChange={(e) => setPassword(e.target.value)}
+                                onChange={(e) => {
+                                    setPassword(e.target.value)
+                                    setErrorMessage('')
+                                }}
                                 required
                             />
                         </div>
@@ -55,8 +72,12 @@ const UpdateAdmin = () => {
                                 type="password"
                                 className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 placeholder="Confirm new password"
+                                // name='confirmpassword'
                                 value={confirmPassword}
-                                onChange={(e) => setConfirmPassword(e.target.value)}
+                                onChange={(e) => {
+                                    setConfirmPassword(e.target.value)
+                                    setErrorMessage('')
+                                }}
                                 required
                             />
                         </div>

@@ -32,9 +32,16 @@ export const UserApi = createApi({
                 url: `/authfilter?status=${status}`,
                 method: 'GET'
             })
+        }),
+        deleteUser: builder.mutation({
+            query: ({ id }) => ({
+                url: `/auth/${id}`,
+                method: 'DELETE',
+
+            })
         })
 
     })
 })
 
-export const { useAddUserMutation, useGetUsersQuery, useUpdateUserMutation, useFilterUserQuery } = UserApi
+export const { useAddUserMutation, useGetUsersQuery, useUpdateUserMutation, useFilterUserQuery, useDeleteUserMutation } = UserApi
