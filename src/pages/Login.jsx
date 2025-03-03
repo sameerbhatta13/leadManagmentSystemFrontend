@@ -1,13 +1,16 @@
 import React, { useState } from 'react'
-import { useGetAdminQuery, useSigninAdminMutation } from '../redux/Api/Admin'
+import { useGetAdminQuery, useResetPasswordMutation, useSigninAdminMutation } from '../redux/Api/Admin'
 import { NavLink, useNavigate } from 'react-router'
 import { toast } from 'react-toastify'
 import { useDispatch } from 'react-redux'
+import Modal from 'react-modal';
 
-
+Modal.setAppElement('#root');
 const Login = () => {
-    const navigate = useNavigate()
-
+    const navigate = useNavigate();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [email, setEmail] = useState('')
+    const [errorMessage, setErrorMessage] = useState('')
 
     const [loginData, setLoginData] = useState({
         email: '',
@@ -15,7 +18,7 @@ const Login = () => {
     })
     const { refetch } = useGetAdminQuery()
 
-    const [loginAdmin, { isError, error }] = useSigninAdminMutation()
+    const [loginAdmin, { isError, }] = useSigninAdminMutation()
 
     const handleChange = (e) => {
         setLoginData({ ...loginData, [e.target.name]: e.target.value })
@@ -38,6 +41,36 @@ const Login = () => {
 
 
     }
+
+
+    //for reset password
+    const [resetPassword, { error }] = useResetPasswordMutation()
+    console.log(error)
+    const handleForgotPassword = (e) => {
+        e.preventDefault();
+        setIsModalOpen(true);
+    };
+
+    const handleSendEmail = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await resetPassword({ email })
+            console.log("first", response)
+
+            if (response?.data?.message) {
+                navigate('/otp')
+                localStorage.setItem('Id', response?.data?.data?.adminId)
+            }
+            else {
+                setErrorMessage('enter a correct email')
+            }
+
+        } catch (error) {
+
+
+        }
+        // setIsModalOpen(false);
+    };
     return (
         <>
 
@@ -74,12 +107,39 @@ const Login = () => {
                             Submit Now
                         </button>
 
-                        <p className='font-bold flex flex-row gap-1'>Foget Password ?<NavLink className='hover:text-blue-600 hover:underline underline-offset-2'>click Here</NavLink> </p>
+                        <p className='font-bold flex flex-row gap-1'>Foget Password ? <button onClick={handleForgotPassword} className='hover:text-blue-600 hover:underline underline-offset-2'>
+                            Click Here
+                        </button> </p>
+
+
 
                     </form>
 
                 </div>
             </div>
+            <Modal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)} className="bg-white p-6 rounded-lg shadow-lg w-96 mx-auto mt-40">
+                <h2 className='text-xl font-semibold text-center mb-4'>Reset Password</h2>
+                <p className='text-gray-600 text-center mb-4'>Enter your email to receive a password reset link.</p>
+                <input
+                    type='email'
+                    placeholder='Enter your email'
+                    value={email}
+                    onChange={(e) => {
+                        setEmail(e.target.value)
+                        setErrorMessage('')
+                    }
+                    }
+                    className='w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 text-center'
+                />
+                {errorMessage && <p className='text-red-500 text-sm mt-2 text-center'>{errorMessage}</p>}
+                <div className='flex justify-between mt-4'>
+                    <button onClick={() => {
+                        setIsModalOpen(false)
+                        setErrorMessage('')
+                    }} className='bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500'>Cancel</button>
+                    <button onClick={handleSendEmail} className='bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600'>Send Email</button>
+                </div>
+            </Modal>
         </>
     )
 }

@@ -16,6 +16,8 @@ import ClientLead from './src/manageLeads/ClientLead'
 import StudentLead from './src/manageLeads/StudentLead'
 import CancelLead from './src/manageLeads/CancelLead'
 import ServiceList from './src/service/ServiceList'
+import Otp from './src/pages/Otp'
+import UpdateAdmin from './src/pages/UpdateAdmin'
 
 const MyRoutes = () => {
     return (
@@ -30,6 +32,9 @@ const MyRoutes = () => {
                 </Route>
 
                 <Route path='/inputform' element={<InputForm />} />
+                <Route path='/otp' element={<Otp />} />
+                <Route path='/update/admin' element={<UpdateAdmin />} />
+
                 <Route path='' element={<Protected Cmp={DashboarLayout} />} >
                     <Route path='/dashboard' element={<Dashboard />} />
                     <Route path='/active' element={<ActiveLead />} />

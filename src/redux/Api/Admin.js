@@ -25,8 +25,32 @@ export const AdminApi = createApi({
 
 
             })
+        }),
+        resetPassword: builder.mutation({
+            query: (data) => ({
+                url: 'admin/reset',
+                method: 'POST',
+                body: data
+
+            })
+
+        }),
+        verifyOtp: builder.mutation({
+            query: (data) => ({
+                url: '/verify',
+                method: 'POST',
+                body: data
+            })
+
+        }),
+        updateAdmin: builder.mutation({
+            query: ({ id, data }) => ({
+                url: `/admin/${id}`,
+                method: 'PUT',
+                body: data
+            })
         })
     })
 })
 
-export const { useSigninAdminMutation, useGetAdminQuery } = AdminApi
+export const { useSigninAdminMutation, useGetAdminQuery, useResetPasswordMutation, useVerifyOtpMutation, useUpdateAdminMutation } = AdminApi
