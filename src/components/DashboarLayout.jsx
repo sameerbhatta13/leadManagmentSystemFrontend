@@ -29,10 +29,9 @@ const Dashboard = () => {
     const { data: admin, refetch: adminrefetch } = useGetAdminQuery()
     // console.log("admin", admin)
 
+
     const handleLogout = () => {
         dispatch(logout())
-        // localStorage.removeItem('admin')
-        // adminrefetch()
         navigate('/')
         toast.info('logged Out')
     }
@@ -54,7 +53,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         refetch()
-    }, [admin])
+    }, [admin, data])
 
 
     return (
@@ -104,7 +103,7 @@ const Dashboard = () => {
 
                     {showProfile && (
                         <div id="profile-popup" className="absolute right-16 top-12 bg-white shadow-lg rounded-lg w-72 p-4 border z-50 ">
-                            <p className="text-gray-700 font-semibold">Kitwosd IT SC</p>
+                            <p className="text-gray-700 font-semibold">Name: {admin?.data?.email.split('@')[0]}</p>
                             <p className="text-gray-500 text-sm ">Email: {admin?.data.email}</p>
                             <button onClick={handleLogout} className="mt-3 w-full bg-red-500 text-white py-1 rounded-md text-sm">Logout</button>
                         </div>

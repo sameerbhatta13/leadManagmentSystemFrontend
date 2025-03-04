@@ -18,6 +18,7 @@ const AddService = ({ setAddService }) => {
             const response = await addService(data)
             console.log(response)
             refetch()
+            formState('')
 
         } catch (error) {
             console.log(error)
@@ -31,9 +32,9 @@ const AddService = ({ setAddService }) => {
                 <div className="bg-white p-6 flex rounded-lg shadow-lg">
                     <form action="" onSubmit={handleSubmit(sendData)} className='w-full ' noValidate>
                         <div className='flex flex-col text-start'>
-                            <h1 className='font-semibold'>Add More Service</h1>
+                            <h1 className='font-semibold my-3'>Add More Service</h1>
 
-                            <label htmlFor="" className='font-bold'>Title</label>
+                            <label htmlFor="" className='font-bold'>Service Name</label>
                             <input type="text" placeholder='Enter The Service Tilte' className='my-2 border p-1 rounded-lg' {...register('title', {
                                 required: {
                                     value: true,
@@ -41,11 +42,11 @@ const AddService = ({ setAddService }) => {
                                 }
                             })} />
                             <p className='text-red-600'>{errors?.title?.message}</p>
-                            <div className='flex gap-3.5'>
+                            <div className='flex gap-5 my-4'>
                                 <button onClick={() => setAddService()} className='rounded-lg border p-2 bg-red-600 text-white'>
                                     Cancel
                                 </button>
-                                <button className='rounded-lg border p-2 bg-green-600 text-white' >
+                                <button className='rounded-lg border p-2 bg-gradient-to-bl from-green-200 to-red-200 text-black font-bold' >
                                     Add Service
                                 </button>
                             </div>
