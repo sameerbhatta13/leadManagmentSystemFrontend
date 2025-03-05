@@ -42,7 +42,7 @@ const ActiveLead = () => {
 
     return (
         <>
-            <div className=" flex flex-col w-full h-full overflow-scroll bg-gray-50  shadow-md rounded-lg bg-clip-border min-w-max">
+            <div className=" flex flex-col w-full h-full bg-gray-50  shadow-md rounded-lg bg-clip-border min-w-max">
 
 
                 <table className='table-auto border-separate border-gray-400 w-full p-2 my-6 rounded-lg '>

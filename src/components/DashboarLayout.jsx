@@ -97,9 +97,10 @@ const Dashboard = () => {
             </div>
 
             {/* Right Panel (70%) */}
-            <div className="col-span-8 bg-[#F5F5F5] p-4 ">
+            <div className=" col-span-8 md:col-span-8 bg-[#F5F5F5] p-4 ">
 
                 <div className='flex flex-row justify-between my-4 items-center'>
+                    <button></button>
                     <NavLink to='/dashboard' className='bg-white text-black w-full'>Dashboard</NavLink>
                     <button id='profile' className='mr-5' onClick={() => setShowProfile(!showProfile)}><CgProfile size={30} /></button>
                     <Tooltip anchorSelect='#profile' place='top' content='profile details' style={{ fontSize: "10px", padding: "4px", zIndex: 50 }} />
