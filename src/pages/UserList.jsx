@@ -1,28 +1,45 @@
 import React, { useEffect, useState } from 'react'
 
-import { toast } from 'react-toastify'
-
 import UpdateStatus from './UpdateStatus'
 import UpdateCancel from './UpdateCancel'
 import { useGetUsersQuery } from '../redux/Api/UserApi'
 import UpdateForm from './UpdateForm'
+
 
 const UserList = () => {
     const [selectedValue, setSelectedValue] = useState('')
     const [search, setSearch] = useState('')
     const [selectUser, setSelectUser] = useState({})
 
+    const [currPage, setCurrPage] = useState(1)
+    const itemPerPage = 4
+
 
     const { data: UserData, error, isError, refetch } = useGetUsersQuery()
 
-    const users = UserData?.data || null
 
-    const filterData = users?.filter(item => item?.status.toLowerCase().includes(search.toLowerCase()) || item?.name.toLowerCase().includes(search.toLowerCase()) || String(item?.phone).includes(search))
+    const users = UserData?.data?.filter((item) => item.status != 'Cancel') || null
+
+    const filterData = users?.filter(item => {
+        if (search == '') {
+            return item
+        }
+        else {
+
+            return item?.status.toLowerCase().includes(search.toLowerCase()) || item?.name.toLowerCase().includes(search.toLowerCase()) || String(item?.phone).includes(search)
+
+        }
+    })
+
+    const totalPage = Math.ceil(filterData?.length / itemPerPage)
+    const displayUser = filterData?.slice((currPage - 1) * itemPerPage, (currPage * itemPerPage))
+
 
 
     useEffect(() => {
         refetch()
     }, [])
+
 
 
 
@@ -37,7 +54,10 @@ const UserList = () => {
                         <div className="relative">
                             <input
                                 className="bg-white w-full pr-11 h-10 pl-3 py-2 placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md"
-                                onChange={(e) => setSearch(e.target.value)}
+                                onChange={(e) => {
+                                    setSearch(e.target.value)
+                                    setCurrPage(1)
+                                }}
                                 placeholder="Search here..."
                             />
                             <button
@@ -53,65 +73,65 @@ const UserList = () => {
                 </div>
             </div>
 
-            <div className="relative flex flex-col w-full h-full overflow-scroll bg-gray-50  shadow-md rounded-lg bg-clip-border">
-                {filterData?.length > 0 ? (
-                    <table className="w-full text-left table-auto min-w-max border-gray-400 ">
-                        <thead>
+            <div className="relative flex flex-col w-full h-full overflow-scroll  shadow-md rounded-lg bg-clip-border">
+                {displayUser?.length > 0 ? (
+                    <table className="w-full text-left table-auto  min-w-max border-gray-400 ">
+                        <thead className=''>
                             <tr>
                                 <th className="p-4 border-b border-slate-300 text-black">
-                                    <p className="block text-sm font-normal leading-none">
+                                    <p className="block text-lg font-normal leading-none">
                                         S.N
                                     </p>
                                 </th>
                                 <th className="p-4 border-b border-slate-300">
-                                    <p className="block text-sm font-normal leading-none ">
+                                    <p className="block text-lg font-normal leading-none ">
                                         Name
                                     </p>
                                 </th>
                                 <th className="p-4 border-b border-slate-300 ">
-                                    <p className="block text-sm font-normal leading-non">
+                                    <p className="block text-lg font-normal leading-non">
                                         Email
                                     </p>
                                 </th>
                                 <th className="p-4 border-b border-slate-300 ">
-                                    <p className="block text-sm font-normal leading-none ">
+                                    <p className="block text-lg font-normal leading-none ">
                                         Phone
                                     </p>
                                 </th>
                                 <th className="p-4 border-b border-slate-300 ">
-                                    <p className="block text-sm font-normal leading-none ">
+                                    <p className="block text-lg font-normal leading-none ">
                                         Status
                                     </p>
                                 </th>
                                 <th className="p-4 border-b border-slate-300 ">
-                                    <p className="block text-sm font-normal leading-none ">
+                                    <p className="block text-lg font-normal leading-none ">
                                         Change Status
                                     </p>
                                 </th>
                             </tr>
                         </thead>
-                        <tbody className="hover:bg-slate-50">
+                        <tbody className=" bg-white hover:bg-slate-50">
 
                             {
-                                filterData?.filter(user => user.status !== 'Cancel')?.map((user, index) => {
+                                displayUser?.map((user, index) => {
                                     return <tr key={index}>
 
                                         <td className="p-4 border-b border-slate-200 py-5">
                                             <p className="block font-semibold text-sm text-slate-800">{index + 1}</p>
                                         </td>
                                         <td className="p-4 border-b border-slate-200 py-5">
-                                            <p className="text-sm text-slate-500">{user.name}</p>
+                                            <p className="">{user.name}</p>
                                         </td>
                                         <td className="p-4 border-b border-slate-200 py-5">
-                                            <p className="text-sm text-slate-500">{user.email}</p>
+                                            <p className="">{user.email}</p>
                                         </td>
                                         <td className="p-4 border-b border-slate-200 py-5">
-                                            <p className="text-sm text-slate-500">{user.phone}</p>
+                                            <p className="">{user.phone}</p>
                                         </td>
                                         <td className="p-4 border-b border-slate-200 py-5">
-                                            <p className="text-sm text-slate-500">{user.status}</p>
+                                            <p className="">{user.status}</p>
                                         </td>
-                                        <td className="p-4 border-b border-slate-200 py-5">
+                                        <td className="p-4 border-b border-slate-200 py-5 w-fit">
                                             {
                                                 user.status == 'Active' ? (
                                                     <select
@@ -121,8 +141,8 @@ const UserList = () => {
 
                                                         }}
 
-                                                        name="service" id="" className='border border-gray-300 rounded-lg my-3 p-1 w-[50%]'>
-                                                        <option value="" disabled selected> select status</option>
+                                                        name="service" id="" className='border border-gray-300 rounded-lg my-3 p-1 w-fit'>
+                                                        <option value="" disabled selected  > select status</option>
                                                         <option value="Follow Up">Follow Up</option>
                                                         <option value="Cancel">Cancel</option>
                                                     </select>
@@ -137,7 +157,7 @@ const UserList = () => {
 
                                                                 }}
 
-                                                                name="service" id="" className='border border-gray-300 rounded-lg my-3 p-1 w-[50%]'>
+                                                                name="service" id="" className='border border-gray-300 rounded-lg my-3 p-1 w-fit'>
                                                                 <option value="" disabled selected> select status</option>
                                                                 <option value="Cancel">Cancel</option>
 
@@ -150,7 +170,7 @@ const UserList = () => {
 
                                                                 }}
 
-                                                                name="service" id="" className='border border-gray-300 rounded-lg my-3 p-1 w-[50%]'>
+                                                                name="service" id="" className='border border-gray-300 rounded-lg my-3 p-1 w-fit'>
                                                                 <option value="" disabled selected> select status</option>
                                                                 <option value="Client">Client</option>
                                                                 <option value="Student">Student</option>
@@ -173,11 +193,31 @@ const UserList = () => {
                                     </tr>
                                 })
                             }
+
                         </tbody>
+
                     </table>) : (<div className='flex justify-center items-center my-9'>
                         <h1 className='font-bold text-5xl'>No Records Found</h1>
                     </div>)
                 }
+
+                <div className='flex justify-between items-center m-4'>
+                    <button
+                        disabled={currPage === 1}
+                        onClick={() => setCurrPage(prev => Math.max(prev - 1, 1))}
+                        className={`border p-3 transform transition-transform rounded-lg ${currPage === totalPage ? `bg-white` : `bg-slate-300`}`}
+                    >
+                        previous
+                    </button>
+                    <span>page {currPage} of {totalPage}</span>
+
+                    <button
+                        disabled={currPage === totalPage}
+                        onClick={() => setCurrPage(prev => Math.min(prev + 1, totalPage))}
+                        className={`border p-3 transform transition-transform rounded-lg ${currPage === totalPage ? `bg-white` : `bg-slate-300`}`}
+                    >
+                        Next</button>
+                </div>
             </div>
 
 

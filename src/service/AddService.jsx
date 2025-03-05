@@ -8,6 +8,7 @@ const AddService = ({ setAddService }) => {
     const popupRef = useRef(null)
 
     const [addService] = useAddServiceMutation()
+    // console.log("addService", addService)
     const { refetch } = useGetServiceQuery()
 
 
@@ -16,9 +17,10 @@ const AddService = ({ setAddService }) => {
     const sendData = async (data) => {
         try {
             const response = await addService(data)
-            console.log(response)
+
+
+            setAddService(false)
             refetch()
-            formState('')
 
         } catch (error) {
             console.log(error)
@@ -43,7 +45,7 @@ const AddService = ({ setAddService }) => {
                             })} />
                             <p className='text-red-600'>{errors?.title?.message}</p>
                             <div className='flex gap-5 my-4'>
-                                <button onClick={() => setAddService()} className='rounded-lg border p-2 bg-red-600 text-white'>
+                                <button onClick={() => setAddService('')} className='rounded-lg border p-2 bg-red-600 text-white'>
                                     Cancel
                                 </button>
                                 <button className='rounded-lg border p-2 bg-gradient-to-bl from-green-200 to-red-200 text-black font-bold' >

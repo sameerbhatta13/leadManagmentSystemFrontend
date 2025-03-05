@@ -12,12 +12,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/Slice/AdminSlice";
 import { toast } from "react-toastify";
 import Modal from "react-modal";
+import InputForm from "../pages/InputForm";
+import { FiMenu, FiX } from 'react-icons/fi';
+
+
 
 const Dashboard = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [showProfile, setShowProfile] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false)
     console.log(isModalOpen);
 
     const { data, isError, error, refetch } = useGetUsersQuery();
@@ -28,13 +33,14 @@ const Dashboard = () => {
     }, {});
 
     const { data: admin, refetch: adminrefetch } = useGetAdminQuery();
-    // console.log("admin", admin)
+
 
     const handleLogout = () => {
         dispatch(logout());
         navigate("/");
         toast.info("logged Out");
-    };
+    }
+
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -44,10 +50,11 @@ const Dashboard = () => {
         };
         document.addEventListener("click", handleClickOutside);
         return () => document.removeEventListener("click", handleClickOutside);
-    }, []);
+    }, [])
+
     useEffect(() => {
         adminrefetch();
-    }, []);
+    }, [])
 
     useEffect(() => {
         refetch();
@@ -62,11 +69,17 @@ const Dashboard = () => {
         { key: "Cancel" },
     ];
 
+    useEffect(() => {
+        window.scrollTo({
+            top: 0,
+        })
+    }, [])
+
 
     return (
         <div className=" grid grid-cols-10 w-full gap-4 min-h-screen font-sans">
             {/* Left Panel (30%) */}
-            <div className="hidden md:block col-span-2 bg-[#121418] p-4 ">
+            <div className="hidden md:block col-span-2 bg-[#121418] p-4 h-screen overflow-hidden">
                 <div className="mx-2">
                     <NavLink
                         to="/dashboard"
@@ -124,6 +137,7 @@ const Dashboard = () => {
                             className={({ isActive }) =>
                                 `mx-8 my-1 text-[#E3B23C] transition duration-300 ${isActive ? "text-[#FFD700] font-bold" : "hover:text-[#FFD700]"
                                 }`
+
                             }
                         >
                             Cancel
@@ -141,7 +155,10 @@ const Dashboard = () => {
             </div>
 
             {/* Right Panel (70%) */}
-            <div className="col-span-10 md:col-span-8 bg-[#F5F5F5] p-4 ">
+            <div className="col-span-10 md:col-span-8 bg-[#F5F5F5] p-4 overflow-auto h-screen ">
+
+                <button className="md:hidden text-2xl" onClick={() => setIsOpen(!isOpen)}>{isOpen ? <FiX /> : <FiMenu />}</button>
+
                 <div className="flex flex-row justify-between my-4 items-center ">
                     <NavLink to="/dashboard" className="bg-white text-black w-full px-4 py-2 mr-4 text-2xl">
                         Dashboard
@@ -197,30 +214,25 @@ const Dashboard = () => {
 
                 <Modal
                     isOpen={isModalOpen}
-                    className="bg-white  relative p-6 rounded-lg shadow-lg w-96 mt-48 mx-auto"
-                >
-                    <h1>Are you sure ??</h1>
-                    <div className="flex flex-row gap-3.5 my-5">
-                        <button
-                            className="rounded-lg border p-2 bg-amber-50"
-                            onClick={() => setIsModalOpen(!isModalOpen)}
-                        >
-                            No
-                        </button>
-                        <button className="rounded-lg border p-2 bg-green-200">Yes</button>
+                    onRequestClose={() => setIsModalOpen(false)}
+                    className="bg-white  relative p-6 rounded-lg shadow-lg w-96 mt-48 mx-auto">
+                    <div>
+                        <InputForm />
                     </div>
+
+
                 </Modal>
 
-                {/* for number of lead */}
 
+                {/* for number of lead */}
                 <div className="grid grid-cols-2 gap-5 md:grid-cols-5 mx-4 pt-4 ">
                     {statuses.map(({ key, textSize }) => (
                         <div
                             key={key}
                             className="bg-white border-2 flex flex-col  items-center justify-around rounded-lg w-auto p-6  "
                         >
-                            <p className="text-4xl pb-2">
-                                <b>{countOccurance?.[key]}</b>
+                            <p className="text-2xl pb-2">
+                                <b>{countOccurance?.[key] || 0}</b>
                             </p>
                             <p className="backdrop-blur-xs text-xl text-center">{key}</p>
                         </div>

@@ -10,8 +10,7 @@ const Navbar = () => {
         <nav className={`sticky top-0 bg-white text-black shadow-md z-10 px-20 py-4`}>
 
             {/* Parent Flex Container */}
-            <div className='flex justify-between items-center
-            ' >
+            <div className='flex justify-between items-center'>
 
                 {/* Left Side: Logo */}
                 <Link to='/' className='font-bold text-xl'>LOGO</Link>

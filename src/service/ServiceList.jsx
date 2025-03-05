@@ -9,14 +9,14 @@ import Modal from 'react-modal';
 
 const ServiceList = () => {
     const [updateService, setUpdateService] = useState()
-    const [addService, setAddService] = useState('')
     const [id, setId] = useState()
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const [addService, setAddService] = useState(false)
 
 
-    // console.log("addservice", addService)
+    console.log("addservice", addService)
 
-    console.log("updateService", updateService)
+    // console.log("updateService", updateService)
     const { data: service, refetch } = useGetServiceQuery()
 
     const [deleteService] = useDeleteServiceMutation()
@@ -40,7 +40,7 @@ const ServiceList = () => {
         <>
 
             <div className='flex justify-end mt-9 mr-6'>
-                <button onClick={() => setAddService('addservice')} className=' flex flex-row border rounded-lg p-2 gap-2' ><MdLibraryAdd className='my-1' />Add Service</button>
+                <button onClick={() => setAddService(true)} className=' flex flex-row border rounded-lg p-2 gap-2' ><MdLibraryAdd className='my-1' />Add Service</button>
             </div>
             <table className='table-auto border-separate border-gray-400 w-full p-2 my-6 rounded-lg overflow-hidden'>
                 <thead >
@@ -72,20 +72,20 @@ const ServiceList = () => {
 
                                 </td>
 
-                                {
-                                    (addService === 'addservice') &&
-                                    <AddService setAddService={setAddService} />
-                                }
+
 
                                 {
                                     (updateService === items._id) &&
                                     <UpdateService id={items._id} item={items} setUpdateService={setUpdateService} />
                                 }
+
                             </tr>
+
 
                         })
                     }
                 </tbody>
+
                 <Modal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)} className='bg-white  relative p-6 rounded-lg shadow-lg w-96 mt-48 mx-auto'>
                     <h1>Are you sure ??</h1>
                     <div className='flex flex-row gap-3.5 my-5'>
@@ -97,6 +97,11 @@ const ServiceList = () => {
 
 
             </table>
+
+            {
+                (addService === true) &&
+                <AddService setAddService={setAddService} />
+            }
         </>
     )
 }
