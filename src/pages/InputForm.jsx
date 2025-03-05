@@ -6,17 +6,17 @@ import { useGetServiceQuery } from '../redux/Api/Service';
 
 const InputForm = () => {
     const { data: service } = useGetServiceQuery()
-    console.log(service)
+    // console.log(service)
     const [values, setValues] = useState({
         name: '',
         email: '',
         phone: '',
         service: ""
     });
-    console.log(values)
+    // console.log(values)
 
     const [addUser, { isError, error }] = useAddUserMutation();
-    console.log(isError, error);
+    // console.log(isError, error);
 
     const handleChange = event => {
         setValues({ ...values, [event.target.name]: event.target.value });
@@ -24,12 +24,12 @@ const InputForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(values)
+        // console.log(values)
 
         try {
             const response = await addUser(values);
             if (response.ok) {
-                console.log(await response.json());
+                // console.log(await response.json());
             }
             toast.success('User added successfully');
         } catch (error) {
@@ -44,7 +44,7 @@ const InputForm = () => {
 
                 <div className='min-h-screen flex items-center justify-center bg-gray-100 px-4'>
                     <div className='bg-white shadow-lg rounded-lg p-8 w-full max-w-2xl'>
-                        <h1 className='text-3xl font-bold text-center text-gray-800 mb-6'>Add Member</h1>
+                        <h1 className='text-3xl font-bold text-center text-gray-800 mb-6'>Add Lead</h1>
                         <form onSubmit={handleSubmit} className='space-y-5 rounded-lg'>
                             <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
                                 <div className='flex flex-col'>

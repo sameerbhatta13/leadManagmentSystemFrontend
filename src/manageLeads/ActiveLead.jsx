@@ -42,51 +42,55 @@ const ActiveLead = () => {
 
     return (
         <>
-            <table className='table-auto border-separate border-gray-400 w-full p-2 my-6 rounded-lg overflow-hidden'>
-                <thead >
-                    <tr>
-                        <th className='border border-gray-300 p-2'>S.N</th>
-                        <th className='border border-gray-300 p-2'>Name</th>
-                        <th className='border border-gray-300 p-2'>Email</th>
-                        <th className='border border-gray-300 p-2'>Phone</th>
-                        <th className='border border-gray-300 p-2'>Created At</th>
-                        <th className='border border-gray-300 p-2'>Updated At</th>
-                        <th className='border border-gray-300 p-2'>Update Status</th>
+            <div className=" flex flex-col w-full h-full overflow-scroll bg-gray-50  shadow-md rounded-lg bg-clip-border min-w-max">
 
-                    </tr>
-                </thead>
 
-                <tbody className='bg-white text-black'>
+                <table className='table-auto border-separate border-gray-400 w-full p-2 my-6 rounded-lg '>
+                    <thead >
+                        <tr>
+                            <th className='border border-gray-300 p-2'>S.N</th>
+                            <th className='border border-gray-300 p-2'>Name</th>
+                            <th className='border border-gray-300 p-2'>Email</th>
+                            <th className='border border-gray-300 p-2'>Phone</th>
+                            <th className='border border-gray-300 p-2'>Created At</th>
+                            <th className='border border-gray-300 p-2'>Updated At</th>
+                            <th className='border border-gray-300 p-2'>Update Status</th>
 
-                    {
-                        users?.data?.filter(user => user.status === 'Active')?.map((items, index) => {
-                            return <tr key={index} className='text-center'>
-                                <td className='border border-gray-300 p-2'>{index + 1}</td>
-                                <td className='border border-gray-300 p-2'>{items.name}</td>
-                                <td className='border border-gray-300 p-2'>{items.email}</td>
-                                <td className='border border-gray-300 p-2'>{items.phone}</td>
-                                <td className='border border-gray-300 p-2'>{new Date(items.createdAt).toLocaleDateString()}</td>
-                                <td className='border border-gray-300 p-2'>{new Date(items.updatedAt).toLocaleDateString()}</td>
-                                <td className='border border-gray-300 p-2'><button className='rounded-lg border p-2 text-black bg-sky-200 ' onClick={() => {
-                                    setId(items._id)
-                                    setIsModalOpen(true)
-                                }}>Update Follow Up</button></td>
+                        </tr>
+                    </thead>
 
-                            </tr>
-                        })
-                    }
-                </tbody>
-                <Modal isOpen={ismodalOpen} onRequestClose={() => setIsModalOpen(false)} className='bg-white shadow-lg p-6 w-96 mt-48 mx-auto rounded-lg'>
-                    <div>
-                        <h1>Are you Sure</h1>
-                        <div className='flex flex-row gap-3.5 my-5'>
+                    <tbody className='bg-white text-black'>
 
-                            <button className='rounded-lg border p-2 bg-amber-50' onClick={() => setIsModalOpen(false)}>No</button>
-                            <button className='rounded-lg border p-2 bg-green-200' onClick={handleUpdate} >Yes</button>
+                        {
+                            users?.data?.filter(user => user.status === 'Active')?.map((items, index) => {
+                                return <tr key={index} className='text-center'>
+                                    <td className='border border-gray-300 p-2'>{index + 1}</td>
+                                    <td className='border border-gray-300 p-2'>{items.name}</td>
+                                    <td className='border border-gray-300 p-2'>{items.email}</td>
+                                    <td className='border border-gray-300 p-2'>{items.phone}</td>
+                                    <td className='border border-gray-300 p-2'>{new Date(items.createdAt).toLocaleDateString()}</td>
+                                    <td className='border border-gray-300 p-2'>{new Date(items.updatedAt).toLocaleDateString()}</td>
+                                    <td className='border border-gray-300 p-2'><button className='rounded-lg border p-2 text-black bg-sky-200 ' onClick={() => {
+                                        setId(items._id)
+                                        setIsModalOpen(true)
+                                    }}>Update Follow Up</button></td>
+
+                                </tr>
+                            })
+                        }
+                    </tbody>
+                    <Modal isOpen={ismodalOpen} onRequestClose={() => setIsModalOpen(false)} className='bg-white shadow-lg p-6 w-96 mt-48 mx-auto rounded-lg'>
+                        <div>
+                            <h1>Are you Sure</h1>
+                            <div className='flex flex-row gap-3.5 my-5'>
+
+                                <button className='rounded-lg border p-2 bg-amber-50' onClick={() => setIsModalOpen(false)}>No</button>
+                                <button className='rounded-lg border p-2 bg-green-200' onClick={handleUpdate} >Yes</button>
+                            </div>
                         </div>
-                    </div>
-                </Modal>
-            </table>
+                    </Modal>
+                </table>
+            </div>
         </>
     )
 }

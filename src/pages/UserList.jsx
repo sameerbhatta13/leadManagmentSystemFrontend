@@ -29,43 +29,89 @@ const UserList = () => {
 
     return (
         <>
-
-
             <h1 className='text-center my-6 font-bold underline underline-offset-4'>Here is the list of Memeber</h1>
-            <div className="flex justify-center mb-6">
-                <input
-                    type="text"
-                    placeholder="Search by status..."
-                    className="w-full max-w-md p-2 border rounded-lg shadow-md bg-white focus:outline-none focus:ring-2 focus:ring-indigo-400"
-                    onChange={(e) => setSearch(e.target.value)}
-                />
+
+            <div className="w-full flex justify-between items-center mb-3 mt-1 pl-3">
+                <div className="ml-3">
+                    <div className="w-full max-w-sm min-w-[200px] relative">
+                        <div className="relative">
+                            <input
+                                className="bg-white w-full pr-11 h-10 pl-3 py-2 placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md"
+                                onChange={(e) => setSearch(e.target.value)}
+                                placeholder="Search here..."
+                            />
+                            <button
+                                className="absolute h-8 w-8 right-1 top-1 my-auto px-2 flex items-center bg-white rounded "
+                                type="button"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" className="w-8 h-8 text-slate-600">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div className='bg-gray-50 flex justify-center items-center px-14'>
+
+            <div className="relative flex flex-col w-full h-full overflow-scroll bg-gray-50  shadow-md rounded-lg bg-clip-border">
                 {filterData?.length > 0 ? (
-                    <table className='table-auto border-seperated border border-gray-400 w-full p-2  my-6 rounded-lg overflow-hidden'>
-                        <thead >
-                            <tr >
-                                <th className='border border-gray-300 p-2 '>S.N</th>
-                                <th className='border border-gray-300 p-2'>Name</th>
-                                <th className='border border-gray-300 p-2 '>Email</th>
-                                <th className='border border-gray-300 p-2 '>Phone Number</th>
-                                <th className='border border-gray-300 p-2 '> Status</th>
-                                <th className='border border-gray-300 p-2 '>Change Status</th>
+                    <table className="w-full text-left table-auto min-w-max border-gray-400 ">
+                        <thead>
+                            <tr>
+                                <th className="p-4 border-b border-slate-300 text-black">
+                                    <p className="block text-sm font-normal leading-none">
+                                        S.N
+                                    </p>
+                                </th>
+                                <th className="p-4 border-b border-slate-300">
+                                    <p className="block text-sm font-normal leading-none ">
+                                        Name
+                                    </p>
+                                </th>
+                                <th className="p-4 border-b border-slate-300 ">
+                                    <p className="block text-sm font-normal leading-non">
+                                        Email
+                                    </p>
+                                </th>
+                                <th className="p-4 border-b border-slate-300 ">
+                                    <p className="block text-sm font-normal leading-none ">
+                                        Phone
+                                    </p>
+                                </th>
+                                <th className="p-4 border-b border-slate-300 ">
+                                    <p className="block text-sm font-normal leading-none ">
+                                        Status
+                                    </p>
+                                </th>
+                                <th className="p-4 border-b border-slate-300 ">
+                                    <p className="block text-sm font-normal leading-none ">
+                                        Change Status
+                                    </p>
+                                </th>
                             </tr>
                         </thead>
+                        <tbody className="hover:bg-slate-50">
 
-                        <tbody className='bg-white text-black'>
                             {
-
                                 filterData?.filter(user => user.status !== 'Cancel')?.map((user, index) => {
                                     return <tr key={index}>
-                                        <td className='border border-gray-300 text-center p-2' >{index + 1}</td>
-                                        <td className='border border-gray-300 text-center p-2'>{user.name}</td>
-                                        <td className='border border-gray-300 text-center p-2'>{user.email}</td>
-                                        <td className='border border-gray-300 text-center p-2'>{user.phone}</td>
-                                        <td className='border border-gray-300 text-center p-2'>{user.status}</td>
-                                        <td className='border border-gray-300 text-center p-2'>
 
+                                        <td className="p-4 border-b border-slate-200 py-5">
+                                            <p className="block font-semibold text-sm text-slate-800">{index + 1}</p>
+                                        </td>
+                                        <td className="p-4 border-b border-slate-200 py-5">
+                                            <p className="text-sm text-slate-500">{user.name}</p>
+                                        </td>
+                                        <td className="p-4 border-b border-slate-200 py-5">
+                                            <p className="text-sm text-slate-500">{user.email}</p>
+                                        </td>
+                                        <td className="p-4 border-b border-slate-200 py-5">
+                                            <p className="text-sm text-slate-500">{user.phone}</p>
+                                        </td>
+                                        <td className="p-4 border-b border-slate-200 py-5">
+                                            <p className="text-sm text-slate-500">{user.status}</p>
+                                        </td>
+                                        <td className="p-4 border-b border-slate-200 py-5">
                                             {
                                                 user.status == 'Active' ? (
                                                     <select
@@ -114,7 +160,6 @@ const UserList = () => {
                                                         )
                                             }
                                         </td>
-
                                         {selectedValue == 'Follow Up' && selectUser._id == user._id ? (
 
                                             <UpdateStatus setSelectedValue={setSelectedValue} id={user?._id} status={selectedValue} />
@@ -124,21 +169,15 @@ const UserList = () => {
                                         ) : (selectedValue == 'Cancel' &&
                                             <UpdateCancel status={selectedValue} id={selectUser?._id} setSelectedValue={setSelectedValue} />
                                         )}
+
                                     </tr>
                                 })
-
                             }
-
                         </tbody>
-
-                    </table>
-                ) : (
-                    <div className='flex justify-center items-center my-9'>
+                    </table>) : (<div className='flex justify-center items-center my-9'>
                         <h1 className='font-bold text-5xl'>No Records Found</h1>
-                    </div>
-                )
+                    </div>)
                 }
-
             </div>
 
 
