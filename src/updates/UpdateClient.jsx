@@ -45,8 +45,8 @@ const UpdateClient = ({ item, id, setUser, setUpdateUser }) => {
 
                 }
             })
-            console.log(response?.data?.data.status)
             console.log("response", response)
+            console.log(response?.data?.data.status)
             if (response?.data?.data?.status === 'Student') {
                 toast.success('Student updated successfully');
             } else if (response?.data?.data?.status === 'Client') {

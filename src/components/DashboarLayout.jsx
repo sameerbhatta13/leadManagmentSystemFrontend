@@ -16,14 +16,12 @@ import InputForm from "../pages/InputForm";
 import { FiMenu, FiX } from 'react-icons/fi';
 
 
-
 const Dashboard = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [showProfile, setShowProfile] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isOpen, setIsOpen] = useState(false)
-    console.log(isModalOpen);
 
     const { data, isError, error, refetch } = useGetUsersQuery();
 
@@ -79,7 +77,10 @@ const Dashboard = () => {
     return (
         <div className=" grid grid-cols-10 w-full gap-4 min-h-screen font-sans">
             {/* Left Panel (30%) */}
-            <div className="hidden md:block col-span-2 bg-[#121418] p-4 h-screen overflow-hidden">
+
+            {/* large screen view */}
+
+            <div className={`hidden md:block col-span-2 bg-[#121418] p-4 h-screen overflow-hidden  `}>
                 <div className="mx-2">
                     <NavLink
                         to="/dashboard"
@@ -95,11 +96,11 @@ const Dashboard = () => {
                         {" "}
                         <FaPersonShelter className="my-1" /> Manage Leads
                     </NavLink>
-                    <div className="flex flex-col">
+                    <div className="flex flex-col ml-10 ">
                         <NavLink
                             to="/active"
                             className={({ isActive }) =>
-                                `mx-8 my-1 text-[#E3B23C] transition duration-300 ${isActive ? "text-[#FFD700] font-bold" : "hover:text-[#FFD700]"
+                                `pl-1 my-1 text-[#E3B23C] transition duration-300 ${isActive ? "text-[#FFD700] font-bold border-s-2 border-indigo-700" : "hover:text-[#FFD700]"
                                 }`
                             }
                         >
@@ -108,7 +109,7 @@ const Dashboard = () => {
                         <NavLink
                             to="/followup"
                             className={({ isActive }) =>
-                                `mx-8 my-1 text-[#E3B23C] transition duration-300 ${isActive ? "text-[#FFD700] font-bold" : "hover:text-[#FFD700]"
+                                `pl-1 my-1 text-[#E3B23C] transition duration-300 ${isActive ? "text-[#FFD700] font-bold border-s-2 border-indigo-700" : "hover:text-[#FFD700]"
                                 }`
                             }
                         >
@@ -117,7 +118,7 @@ const Dashboard = () => {
                         <NavLink
                             to="/client"
                             className={({ isActive }) =>
-                                `mx-8 my-1 text-[#E3B23C] transition duration-300 ${isActive ? "text-[#FFD700] font-bold" : "hover:text-[#FFD700]"
+                                `pl-1 my-1 text-[#E3B23C] transition duration-300 ${isActive ? "text-[#FFD700] font-bold border-s-2 border-indigo-700" : "hover:text-[#FFD700]"
                                 }`
                             }
                         >
@@ -126,7 +127,7 @@ const Dashboard = () => {
                         <NavLink
                             to="/student"
                             className={({ isActive }) =>
-                                `mx-8 my-1 text-[#E3B23C] transition duration-300 ${isActive ? "text-[#FFD700] font-bold" : "hover:text-[#FFD700]"
+                                `pl-1 my-1 text-[#E3B23C] transition duration-300 ${isActive ? "text-[#FFD700] font-bold border-s-2 border-indigo-700" : "hover:text-[#FFD700]"
                                 }`
                             }
                         >
@@ -135,7 +136,7 @@ const Dashboard = () => {
                         <NavLink
                             to="/cancel"
                             className={({ isActive }) =>
-                                `mx-8 my-1 text-[#E3B23C] transition duration-300 ${isActive ? "text-[#FFD700] font-bold" : "hover:text-[#FFD700]"
+                                `pl-1 my-1 text-[#E3B23C] transition duration-300 ${isActive ? "text-[#FFD700] font-bold border-s-2 border-indigo-700 " : "hover:text-[#FFD700]"
                                 }`
 
                             }
@@ -154,12 +155,98 @@ const Dashboard = () => {
                 </div>
             </div>
 
+            {/* mobile view */}
+            <div className={` md:hidden absolute top-0 z-10  bg-[#121418] p-4 h-screen overflow-hidden  ${isOpen ? "translate-x-0 duration-500 transition-transform" : "-translate-x-[300px] duration-500 transition-transform"} `}>
+                <div className="absolute right-5 " onClick={() => setIsOpen(false)}>
+                    <FiX color="white" size={25} />
+                </div>
+                <div className="mx-2">
+                    <NavLink
+                        onClick={() => setIsOpen(false)}
+                        to="/dashboard"
+                        className={({ isActive }) =>
+                            `text-[#F5F5F5] flex flex-row gap-3 mt-10 mb-7 text-xl ${isActive ? "font-bold text-[#FFD700]" : ""
+                            }`
+                        }
+                    >
+                        <GrHomeRounded className="my-1" /> <b>Dashboard</b>{" "}
+                    </NavLink>
+
+                    <NavLink className="text-[#F5F5F5] flex flex-row gap-3 font-semibold my-3 text-xl">
+                        {" "}
+                        <FaPersonShelter className="my-1" /> Manage Leads
+                    </NavLink>
+                    <div className="flex flex-col  ml-10">
+                        <NavLink
+                            onClick={() => setIsOpen(false)}
+                            to="/active"
+                            className={({ isActive }) =>
+                                `pl-1 my-1 text-[#E3B23C] transition duration-300 ${isActive ? "text-[#FFD700] font-bold border-s-2 border-indigo-700 " : "hover:text-[#FFD700]"
+                                }`
+                            }
+                        >
+                            Active
+                        </NavLink>
+                        <NavLink
+                            to="/followup"
+                            onClick={() => setIsOpen(false)}
+                            className={({ isActive }) =>
+                                `pl-1 my-1 text-[#E3B23C] transition duration-300 ${isActive ? "text-[#FFD700] font-bold border-s-2 border-indigo-700 " : "hover:text-[#FFD700]"
+                                }`
+                            }
+                        >
+                            Follow Up
+                        </NavLink>
+                        <NavLink
+                            to="/client"
+                            onClick={() => setIsOpen(false)}
+                            className={({ isActive }) =>
+                                `pl-1 my-1 text-[#E3B23C] transition duration-300 ${isActive ? "text-[#FFD700] font-bold border-s-2 border-indigo-700 " : "hover:text-[#FFD700]"
+                                }`
+                            }
+                        >
+                            Client
+                        </NavLink>
+                        <NavLink
+                            to="/student"
+                            onClick={() => setIsOpen(false)}
+                            className={({ isActive }) =>
+                                `pl-1 my-1 text-[#E3B23C] transition duration-300 ${isActive ? "text-[#FFD700] font-bold border-s-2 border-indigo-700 " : "hover:text-[#FFD700]"
+                                }`
+                            }
+                        >
+                            Student
+                        </NavLink>
+                        <NavLink
+                            to="/cancel"
+                            onClick={() => setIsOpen(false)}
+                            className={({ isActive }) =>
+                                `pl-1 my-1 text-[#E3B23C] transition duration-300 ${isActive ? "text-[#FFD700] font-bold border-s-2 border-indigo-700 " : "hover:text-[#FFD700]"
+                                }`
+
+                            }
+                        >
+                            Cancel
+                        </NavLink>
+                    </div>
+
+                    <NavLink
+                        to="/services"
+                        onClick={() => setIsOpen(false)}
+                        className="text-[#F5F5F5] text-xl my-3 flex flex-row gap-3"
+                    >
+                        <FaUserCog className="my-1" />
+                        Services
+                    </NavLink>
+                </div>
+            </div>
+
             {/* Right Panel (70%) */}
             <div className="col-span-10 md:col-span-8 bg-[#F5F5F5] p-4 overflow-auto h-screen ">
 
-                <button className="md:hidden text-2xl" onClick={() => setIsOpen(!isOpen)}>{isOpen ? <FiX /> : <FiMenu />}</button>
+                <button className="md:hidden text-2xl" onClick={() => setIsOpen(!isOpen)}>{isOpen ? '' : <FiMenu />}</button>
 
-                <div className="flex flex-row justify-between my-4 items-center ">
+                <div className="flex flex-row justify-between my-4 items-center " >
                     <NavLink to="/dashboard" className="bg-white text-black w-full px-4 py-2 mr-4 text-2xl">
                         Dashboard
                     </NavLink>
@@ -216,8 +303,8 @@ const Dashboard = () => {
                     isOpen={isModalOpen}
                     onRequestClose={() => setIsModalOpen(false)}
                     className="bg-white  relative p-6 rounded-lg shadow-lg w-96 mt-48 mx-auto">
-                    <div>
-                        <InputForm />
+                    <div >
+                        <InputForm setIsModalOpen={setIsModalOpen} refetch={refetch} />
                     </div>
 
 
@@ -229,12 +316,12 @@ const Dashboard = () => {
                     {statuses.map(({ key, textSize }) => (
                         <div
                             key={key}
-                            className="bg-white border-2 flex flex-col  items-center justify-around rounded-lg w-auto p-6  "
+                            className="bg-white flex flex-col inset-shadow-sm  opacity-90 border-l-2 items-center justify-around rounded-lg w-auto p-6  "
                         >
                             <p className="text-2xl pb-2">
                                 <b>{countOccurance?.[key] || 0}</b>
                             </p>
-                            <p className="backdrop-blur-xs text-xl text-center">{key}</p>
+                            <p className="backdrop-blur-xs text-xl text-center ">{key}</p>
                         </div>
                     ))}
                 </div>

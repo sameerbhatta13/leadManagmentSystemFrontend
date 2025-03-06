@@ -5,9 +5,14 @@ import { MdCancel } from "react-icons/md";
 import { MdModeEditOutline } from "react-icons/md";
 import UpdateFollowup from '../updates/UpdateFollowup';
 import Modal from 'react-modal'
+import UpdateForm from '../pages/UpdateForm';
 
 
 const FolloupLead = () => {
+    const [selectedValue, setSelectedValue] = useState()
+    const [selectUser, setSelectUser] = useState()
+    console.log(selectedValue)
+    console.log(selectUser)
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [user, setUser] = useState('')
 
@@ -36,10 +41,11 @@ const FolloupLead = () => {
 
     return (
         <>
-            <div className="relative overflow-scroll flex flex-col w-full h-full bg-gray-50  shadow-md rounded-lg bg-clip-border">
+            <div className="relative overflow-scroll flex flex-col w-full h-full  shadow-md rounded-lg bg-clip-border">
                 <div className='overflow-x-auto mt-6'>
                     {
-                        (folloupUser?.length > 0 || folloupUser?.data?.[0]?.status === 'Follow Up') ? (
+                        folloupUser?.length > 0 || folloupUser?.data?.some(user => user?.status === 'Follow Up') ? (
+
 
                             <table className='table-auto border-separate border-gray-400 w-full p-2 my-6 rounded-lg overflow-hidden'>
                                 <thead >
@@ -49,6 +55,11 @@ const FolloupLead = () => {
                                         <th className='border border-gray-300 p-2'>Email</th>
                                         <th className='border border-gray-300 p-2'>Phone</th>
                                         <th className='border border-gray-300 p-2'>Followup Date</th>
+                                        {
+                                            folloupUser?.data?.some(user => user?.status === 'Follow Up') &&
+                                            <th className='border border-gray-300 p-2'>Change Status</th>
+
+                                        }
                                         <th className='border border-gray-300 p-2'>Action</th>
 
                                     </tr>
@@ -65,6 +76,21 @@ const FolloupLead = () => {
                                                 <td className='border border-gray-300 p-2'>{items.phone}</td>
 
                                                 <td className='border border-gray-300 p-2'>{new Date(items.followUp).toLocaleDateString()}</td>
+                                                {items.status === 'Follow Up' &&
+                                                    <td className='border border-gray-300 p-2 '>
+                                                        <select name="service" id="" className='border border-gray-300 rounded-lg my-3 p-1 w-fit'
+                                                            onChange={(e) => {
+                                                                setSelectedValue(e.target.value)
+                                                                setSelectUser(items._id)
+                                                            }}
+                                                        >
+                                                            <option value=" " disabled selected>Change Status</option>
+                                                            <option value="Client">Client</option>
+                                                            <option value="Student">Student</option>
+                                                        </select>
+                                                    </td>
+
+                                                }
                                                 <td className='border border-gray-300 p-2 '>
                                                     <div className='flex justify-center items-center gap-2'>
 
@@ -83,6 +109,12 @@ const FolloupLead = () => {
                                                     items.status === 'Follow Up' && updateUser == items._id &&
                                                     <UpdateFollowup id={items._id} item={items} setUser={setUser} setUpdateUser={setUpdateUser} />
                                                 }
+                                                {
+                                                    (selectedValue === 'Client' || selectedValue === 'Student') && selectUser === items._id &&
+                                                    <UpdateForm id={items?._id} status={selectedValue} setSelectedValue={setSelectedValue} refetch={refetch} />
+
+
+                                                }
 
 
                                             </tr>
@@ -99,11 +131,10 @@ const FolloupLead = () => {
                                         <button className='rounded-lg border p-2 bg-green-200' onClick={handelCancel} >Yes</button>
                                     </div>
                                 </Modal>
-                            </table>) : (
-                            <div>
-                                <h1>No Records Found for Follow Up</h1>
-                            </div>
-                        )}
+                            </table>) :
+                            (
+                                <div>No Records found for the Follow Up</div>
+                            )}
                 </div>
             </div>
 

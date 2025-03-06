@@ -9,7 +9,7 @@ const ClientLead = () => {
     const [updateUser, setUpdateUser] = useState()
     const [user, setUser] = useState('')
     const { data: client, isError } = useGetUsersQuery()
-
+    console.log("first", client?.data?.some(user => user?.status === "Client"))
 
     useEffect(() => {
         const handleClick = (event) => {
@@ -32,10 +32,10 @@ const ClientLead = () => {
 
     return (
         <>
-            <div className="relative overflow-scroll flex flex-col w-full h-full bg-gray-50  shadow-md rounded-lg bg-clip-border">
+            <div className="relative overflow-scroll flex flex-col w-full h-full shadow-md rounded-lg bg-clip-border">
                 <div className='overflow-x-auto mt-6'>
                     {
-                        (client?.length > 0 || client?.data?.[0]?.status === 'Client') ? (
+                        (client?.length > 0 || (client?.data?.some(user => user?.status === "Client"))) ? (
 
                             <table className='table-auto border-separate border-gray-400 w-full p-2 my-6 rounded-lg overflow-hidden'>
                                 <thead >

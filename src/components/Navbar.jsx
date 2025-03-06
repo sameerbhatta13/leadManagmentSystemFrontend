@@ -25,8 +25,8 @@ const Navbar = () => {
                     <NavLink to="/" end className={({ isActive }) => `block py-2 md:inline ${isActive ? `text-blue-400 font-bold` : ``}`}>Home</NavLink>
                     <NavLink to="/dashboard" end className={({ isActive }) => `block py-2 md:inline ${isActive ? `text-blue-400 font-bold` : ``}`}>DashBoard</NavLink>
 
-                    <NavLink to="/services" className={({ isActive }) => `block py-2 md:inline ${isActive ? `text-blue-400 font-bold` : ``}`}>Services</NavLink>
-                    <NavLink to="/userstate" className={({ isActive }) => `block py-2 md:inline ${isActive ? `text-blue-400 font-bold` : ``}`}>Status</NavLink>
+                    {/* <NavLink to="/services" className={({ isActive }) => `block py-2 md:inline ${isActive ? `text-blue-400 font-bold` : ``}`}>Services</NavLink>
+                    <NavLink to="/userstate" className={({ isActive }) => `block py-2 md:inline ${isActive ? `text-blue-400 font-bold` : ``}`}>Status</NavLink> */}
                 </div>
 
             </div >

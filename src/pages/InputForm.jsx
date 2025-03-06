@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { useAddUserMutation } from '../redux/Api/UserApi';
 import { useGetServiceQuery } from '../redux/Api/Service';
 
-const InputForm = () => {
+const InputForm = ({ setIsModalOpen, refetch }) => {
     const { data: service } = useGetServiceQuery()
     // console.log(service)
     const [values, setValues] = useState({
@@ -26,12 +26,23 @@ const InputForm = () => {
         e.preventDefault();
         // console.log(values)
 
+
+
         try {
             const response = await addUser(values);
-            if (response.ok) {
-                // console.log(await response.json());
+            console.log("first", response)
+            refetch()
+            setIsModalOpen(false)
+            if (response?.data?.message) {
+
+                toast.success(response?.data?.message)
+
             }
-            toast.success('User added successfully');
+            else {
+                toast.error(response?.error?.data?.message)
+
+            }
+
         } catch (error) {
             console.log("error", error);
             toast.error("Error adding user");

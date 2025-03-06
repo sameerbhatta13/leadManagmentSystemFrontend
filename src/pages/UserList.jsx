@@ -46,12 +46,12 @@ const UserList = () => {
 
     return (
         <>
-            <h1 className='text-center my-6 font-bold underline underline-offset-4'>Here is the list of Memeber</h1>
 
-            <div className="w-full flex justify-between items-center mb-3 mt-1 pl-3">
+
+            <div className="w-full flex justify-between items-center  mt-1 pl-3">
                 <div className="ml-3">
                     <div className="w-full max-w-sm min-w-[200px] relative">
-                        <div className="relative">
+                        <div className="relative my-5">
                             <input
                                 className="bg-white w-full pr-11 h-10 pl-3 py-2 placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md"
                                 onChange={(e) => {

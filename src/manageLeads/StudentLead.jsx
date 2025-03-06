@@ -35,10 +35,10 @@ const StudentLead = () => {
 
     return (
         <>
-            <div className="relative overflow-scroll flex flex-col w-full h-full bg-gray-50  shadow-md rounded-lg bg-clip-border">
+            <div className="relative overflow-scroll flex flex-col w-full h-full shadow-md rounded-lg bg-clip-border">
                 <div className='overflow-x-auto mt-6'>
                     {
-                        (student?.length > 0 || student?.data?.[0]?.status === 'Student') ? (
+                        (student?.length > 0 || student?.data?.some(user => user?.status === 'Student')) ? (
 
                             <table className='table-auto border-separate border-gray-400 w-full p-2 my-6 rounded-lg overflow-hidden'>
                                 <thead >

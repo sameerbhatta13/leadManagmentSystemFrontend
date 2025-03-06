@@ -30,10 +30,10 @@ const CancelLead = () => {
 
     return (
         <>
-            <div className="relative overflow-scroll flex flex-col w-full h-full bg-gray-50  shadow-md rounded-lg bg-clip-border">
+            <div className="relative overflow-scroll flex flex-col w-full h-full  shadow-md rounded-lg bg-clip-border">
                 <div className='overflow-x-auto mt-6'>
                     {
-                        (cancel?.length > 0 || cancel?.data?.[0]?.status === 'Cancel') ? (
+                        (cancel?.length > 0 || cancel?.data?.some(user => user?.status === 'Cancel')) ? (
 
 
                             <table className='table-auto border-separate border-gray-400 w-full p-2 my-6 rounded-lg overflow-hidden'>

@@ -12,13 +12,9 @@ const AddService = ({ setAddService }) => {
     const { refetch } = useGetServiceQuery()
 
 
-
-
     const sendData = async (data) => {
         try {
             const response = await addService(data)
-
-
             setAddService(false)
             refetch()
 
@@ -28,13 +24,25 @@ const AddService = ({ setAddService }) => {
         }
     }
 
+    useEffect(() => {
+        const handleclick = (event) => {
+            if (popupRef.current && !popupRef.current.includes(event.target)) {
+                setAddService(false)
+            }
+        }
+        document.addEventListener('mousedown', handleclick)
+
+        return () => {
+            document.removeEventListener('mousedown', handleclick)
+        }
+    }, [setAddService])
+
     return (
         <>
-            <div className="fixed top-0 left-0  w-full h-full flex justify-center items-center bg-black/20 ">
-                <div className="bg-white p-6 flex rounded-lg shadow-lg">
+            <div className="fixed top-0 left-0  w-full h-full flex justify-center items-center bg-black/20">
+                <div ref={popupRef} className="bg-white p-6 flex rounded-lg shadow-lg">
                     <form action="" onSubmit={handleSubmit(sendData)} className='w-full ' noValidate>
                         <div className='flex flex-col text-start'>
-                            <h1 className='font-semibold my-3'>Add More Service</h1>
 
                             <label htmlFor="" className='font-bold'>Service Name</label>
                             <input type="text" placeholder='Enter The Service Tilte' className='my-2 border p-1 rounded-lg' {...register('title', {
@@ -45,15 +53,14 @@ const AddService = ({ setAddService }) => {
                             })} />
                             <p className='text-red-600'>{errors?.title?.message}</p>
                             <div className='flex gap-5 my-4'>
-                                <button onClick={() => setAddService('')} className='rounded-lg border p-2 bg-red-600 text-white'>
+                                <button onClick={() => setAddService('')} className='rounded-lg border p-2 bg-red-600 text-white font-bold'>
                                     Cancel
                                 </button>
-                                <button className='rounded-lg border p-2 bg-gradient-to-bl from-green-200 to-red-200 text-black font-bold' >
+                                <button className='rounded-lg border p-2 bg-gradient-to-bl bg-[#059862] text-white font-bold' >
                                     Add Service
                                 </button>
                             </div>
                         </div>
-
 
                     </form>
                 </div >

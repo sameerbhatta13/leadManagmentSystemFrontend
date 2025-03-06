@@ -34,7 +34,7 @@ const UpdateForm = ({ id, status, setSelectedValue }) => {
         try {
             const updateData = await updateUser({ id: id, data: updateForm })
             console.log("first", updateData)
-
+            refetch()
             if (updateData.ok) {
                 status === 'Client'
                     ? toast.success('client is added')
