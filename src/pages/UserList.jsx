@@ -48,7 +48,7 @@ const UserList = () => {
         <>
 
 
-            <div className="w-full flex justify-between items-center  mt-1 pl-3">
+            <div className="w-full flex justify-start items-center  mt-5 pl-3">
                 <div className="ml-3">
                     <div className="w-full max-w-sm min-w-[200px] relative">
                         <div className="relative my-5">
@@ -207,24 +207,24 @@ const UserList = () => {
                     </div>)
                 }
 
-                <div className='flex justify-between items-center m-4'>
-                    <button
-                        disabled={currPage === 1}
-                        onClick={() => setCurrPage(prev => Math.max(prev - 1, 1))}
-                        className={` bg-[#b9c956] text-white font-bold w-[25%] lg:w-[15%]  border p-3 transform transition-transform rounded-lg ${currPage === 1 ? `hover:bg-slate-200` : ``}`}
-                    >
-                        Previous
-                    </button>
-                    <span className='translate-x-20 lg:translate-x-0'>page {currPage} of {totalPage}</span>
 
-                    <button
-                        disabled={currPage === totalPage}
-                        onClick={() => setCurrPage(prev => Math.min(prev + 1, totalPage))}
-                        className={`bg-[#608e4d] text-white font-bold w-[25%] lg:w-[15%]  border p-3 translate-x-52 sm:translate-x-20 md:translate-x-20 lg:translate-x-0 transform transition-transform rounded-lg ${currPage === totalPage ? `hover:bg-slate-200` : ``}`}
-                    >
-                        Next</button>
-                </div>
+            </div>
+            <div className='flex justify-between items-center m-4'>
+                <button
+                    disabled={currPage === 1}
+                    onClick={() => setCurrPage(prev => Math.max(prev - 1, 1))}
+                    className={` bg-[#b9c956] text-white font-bold border p-3 transform transition-transform rounded-lg ${currPage === 1 ? `hover:bg-slate-200` : ``}`}
+                >
+                    Previous
+                </button>
+                <span className='translate-x-5 lg:translate-x-0'>page {currPage} of {totalPage}</span>
 
+                <button
+                    disabled={currPage === totalPage}
+                    onClick={() => setCurrPage(prev => Math.min(prev + 1, totalPage))}
+                    className={`bg-[#608e4d] text-white font-bold   border p-3 translate-x-5 lg:translate-x-0 transform transition-transform rounded-lg ${currPage === totalPage ? `hover:bg-slate-200` : ``}`}
+                >
+                    Next</button>
             </div>
 
 

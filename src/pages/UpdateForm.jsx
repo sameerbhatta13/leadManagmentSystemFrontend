@@ -23,7 +23,7 @@ const UpdateForm = ({ id, status, setSelectedValue }) => {
 
         }))
 
-
+        //second options !!
         // setUpdateForm({ ...updateForm, [e.target.name]: e.target.value })
 
     }
