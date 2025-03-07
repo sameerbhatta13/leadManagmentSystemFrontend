@@ -94,7 +94,7 @@ const ActiveLead = () => {
                                                 </td>
                                                 <td className="border border-gray-300 p-2">
                                                     <button
-                                                        className="rounded-lg border p-2 text-black bg-sky-200 "
+                                                        className="rounded-lg border p-2 text-white bg-[#3f911c] "
                                                         onClick={() => {
                                                             setId(items._id);
                                                             setIsModalOpen(true);
@@ -114,6 +114,7 @@ const ActiveLead = () => {
                             <Modal
                                 isOpen={ismodalOpen}
                                 onRequestClose={() => setIsModalOpen(false)}
+                                overlayClassName="fixed top-0 left-0 w-full bg-black/60 h-full"
                                 className="bg-white shadow-lg p-6 w-96 mt-48 mx-auto rounded-lg"
                             >
                                 <div>
@@ -125,13 +126,13 @@ const ActiveLead = () => {
                                         <textarea name="remarks" onChange={handleChange} id="" rows='1' cols='12' placeholder='Remarks' className="w-full p-2 border-2 mt-2  border-blue-500 rounded-md focus:outline-none focus:ring-2 focus:ring-red-300"></textarea>
                                         <div className="flex flex-row gap-3.5 my-5">
                                             <button
-                                                className="rounded-lg border p-2 bg-amber-50"
+                                                className="rounded-lg border p-2 bg-red-600 text-white"
                                                 onClick={() => setIsModalOpen(false)}
                                             >
                                                 Cancel
                                             </button>
                                             <button
-                                                className="rounded-lg border p-2 bg-green-200"
+                                                className="rounded-lg border p-2 bg-[#059862] text-white"
 
                                             >
                                                 Update

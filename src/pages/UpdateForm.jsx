@@ -82,7 +82,7 @@ const UpdateForm = ({ id, status, setSelectedValue }) => {
 
 
                         <button
-                            className=' bg-gradient-to-r from-red-300 to-red-800 rounded-lg p-2 mx-4 my-3 transform transition-transform   duration-150 hover:scale-105 font-bold text-white '
+                            className=' bg-red-600 text-white rounded-lg p-2 mx-4 my-3 transform transition-transform   duration-150 hover:scale-105 font-bold '
                             onClick={() => {
                                 setSelectedValue('')
                                 refetch()
@@ -91,7 +91,7 @@ const UpdateForm = ({ id, status, setSelectedValue }) => {
                         >
                             Close
                         </button>
-                        <button className=' bg-gradient-to-r from-green-300 to-green-700 rounded-lg p-2 mx-3.5 my-3  font-bold transform transition-transform  duration-150 hover:scale-105 text-white'>update</button>
+                        <button className='rounded-lg p-2 mx-3.5 my-3 bg-[#059862] text-white  font-bold transform transition-transform  duration-150 hover:scale-105 '>update</button>
                     </form>
                 </div>
             </div>

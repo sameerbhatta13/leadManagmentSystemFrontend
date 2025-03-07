@@ -51,8 +51,6 @@ const InputForm = ({ setIsModalOpen, refetch }) => {
 
     return (
         <>
-
-            <h1 className='text-3xl font-bold text-center text-gray-800 mb-6 underline underline-offset-2'>Add Lead</h1>
             <form onSubmit={handleSubmit} className='space-y-5 rounded-lg'>
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
                     <div className='flex flex-col'>

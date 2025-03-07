@@ -9,7 +9,6 @@ import UpdateForm from './UpdateForm'
 const UserList = () => {
     const [selectedValue, setSelectedValue] = useState('')
     const [search, setSearch] = useState('')
-    const [value, setValue] = useState()
     const [selectUser, setSelectUser] = useState({})
 
     const [currPage, setCurrPage] = useState(1)
@@ -72,16 +71,6 @@ const UserList = () => {
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div>
-                <select name="" id="" className='border-2 rounded-lg'
-                    onChange={(e) => setValue(e.target.value)}
-                >
-                    <option value=""></option>
-                    <option value="0-10">0-10</option>
-                    <option value="10-20">10-20</option>
-                </select>
             </div>
 
             <div className="relative flex flex-col w-full h-full overflow-scroll  shadow-md rounded-lg bg-clip-border">
@@ -201,11 +190,17 @@ const UserList = () => {
                                             <UpdateCancel status={selectedValue} id={selectUser?._id} setSelectedValue={setSelectedValue} />
                                         )}
 
+
+
                                     </tr>
+
                                 })
                             }
 
+
+
                         </tbody>
+
 
                     </table>) : (<div className='flex justify-center items-center my-9'>
                         <h1 className='font-bold text-5xl'>No Records Found</h1>
@@ -216,19 +211,20 @@ const UserList = () => {
                     <button
                         disabled={currPage === 1}
                         onClick={() => setCurrPage(prev => Math.max(prev - 1, 1))}
-                        className={`border p-3 transform transition-transform rounded-lg ${currPage === totalPage ? `bg-white` : `bg-slate-300`}`}
+                        className={` bg-[#b9c956] text-white font-bold w-[25%] lg:w-[15%]  border p-3 transform transition-transform rounded-lg ${currPage === 1 ? `hover:bg-slate-200` : ``}`}
                     >
-                        previous
+                        Previous
                     </button>
-                    <span className='translate-x-48 md:translate-x-0'>page {currPage} of {totalPage}</span>
+                    <span className='translate-x-20 lg:translate-x-0'>page {currPage} of {totalPage}</span>
 
                     <button
                         disabled={currPage === totalPage}
                         onClick={() => setCurrPage(prev => Math.min(prev + 1, totalPage))}
-                        className={`border p-3 translate-x-96 md:translate-x-0 transform transition-transform rounded-lg ${currPage === totalPage ? `bg-white` : `bg-slate-300`}`}
+                        className={`bg-[#608e4d] text-white font-bold w-[25%] lg:w-[15%]  border p-3 translate-x-52 sm:translate-x-20 md:translate-x-20 lg:translate-x-0 transform transition-transform rounded-lg ${currPage === totalPage ? `hover:bg-slate-200` : ``}`}
                     >
                         Next</button>
                 </div>
+
             </div>
 
 

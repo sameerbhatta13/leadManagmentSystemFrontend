@@ -67,12 +67,10 @@ const Dashboard = () => {
         { key: "Cancel" },
     ];
 
-    useEffect(() => {
-        window.scrollTo({
-            top: 0,
-        })
-    }, [])
 
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
 
     return (
         <div className=" grid grid-cols-10 w-full gap-4 min-h-screen font-sans">
@@ -303,6 +301,7 @@ const Dashboard = () => {
                 <Modal
                     isOpen={isModalOpen}
                     onRequestClose={() => setIsModalOpen(false)}
+                    overlayClassName="fixed top-0 left-0 w-full h-full bg-black/60 "
                     className="bg-white  relative p-6 rounded-lg shadow-lg w-96 mt-48 mx-auto">
                     <div>
                         <InputForm setIsModalOpen={setIsModalOpen} refetch={refetch} />
@@ -319,7 +318,7 @@ const Dashboard = () => {
                     {statuses.map(({ key, textSize }) => (
                         <div
                             key={key}
-                            className="bg-white flex flex-col inset-shadow-sm  opacity-90 border-l-2 items-center justify-around rounded-lg w-auto p-6  "
+                            className="bg-white flex flex-col  shadow-xl  opacity-90 border-l-2 items-center justify-around rounded-lg w-auto p-6  "
                         >
                             <p className="text-2xl pb-2">
                                 <b>{countOccurance?.[key] || 0}</b>

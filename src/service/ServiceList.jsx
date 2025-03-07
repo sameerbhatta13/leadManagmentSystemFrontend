@@ -86,8 +86,10 @@ const ServiceList = () => {
                     }
                 </tbody>
 
-                <Modal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)} className='bg-white  relative p-6 rounded-lg shadow-lg w-96 mt-48 mx-auto'>
-                    <h1>Are you sure ??</h1>
+                <Modal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)}
+                    overlayClassName="fixed top-0 left-0 w-full bg-black/60 h-full"
+                    className='bg-white  relative p-6 rounded-lg shadow-lg w-96 mt-48 mx-auto '>
+                    <h1>Are you sure ?</h1>
                     <div className='flex flex-row gap-3.5 my-5'>
 
                         <button className='rounded-lg border p-2 bg-amber-50' onClick={() => setIsModalOpen(false)}>No</button>

@@ -117,7 +117,9 @@ const Login = () => {
 
                 </div>
             </div>
-            <Modal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)} className="bg-white p-6 rounded-lg shadow-lg w-96 mx-auto mt-40">
+            <Modal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)}
+                overlayClassName="fixed top-0 left-0 w-full h-full bg-black/60 flex justify-center items-center"
+                className="bg-white p-6 rounded-lg shadow-lg w-96 mx-auto mt-40">
                 <h2 className='text-xl font-semibold text-center mb-4'>Reset Password</h2>
                 <p className='text-gray-600 text-center mb-4'>Enter your email to receive a password reset link.</p>
                 <input

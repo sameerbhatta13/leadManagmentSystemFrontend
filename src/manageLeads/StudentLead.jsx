@@ -77,8 +77,8 @@ const StudentLead = () => {
                                                 </td>
                                                 {
                                                     (items.status === 'Student' && user === items._id)
-                                                        ? (<div className="fixed top-0 left-0 w-full h-full flex justify-center  items-center  bg-black/60  ">
-                                                            <div ref={popupRef} className="bg-white p-6 rounded-lg shadow-lg flex flex-col ml-24 mt-60">
+                                                        ? (<div className="fixed top-0 left-0 w-full h-full  bg-black/60  ">
+                                                            <div ref={popupRef} className="bg-white p-6 rounded-lg shadow-lg flex flex-col ml-96 mt-60 w-[60%]">
                                                                 <div className='flex justify-end'>
                                                                     <button onClick={handleClose} className='text-red-500 text-3xl -mt-5'>X</button>
                                                                 </div>

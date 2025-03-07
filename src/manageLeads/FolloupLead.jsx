@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useGetUsersQuery, useUpdateUserMutation } from '../redux/Api/UserApi'
 import { FaEye } from "react-icons/fa";
 import { MdCancel } from "react-icons/md";
@@ -36,7 +36,6 @@ const FolloupLead = () => {
         }
 
     }
-
 
 
     return (
@@ -123,7 +122,9 @@ const FolloupLead = () => {
                                     }
                                 </tbody>
 
-                                <Modal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)} className='bg-white  relative p-6 rounded-lg shadow-lg w-96 mt-48 mx-auto'>
+                                <Modal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)}
+                                    overlayClassName="fixed top-0 left-0 w-full bg-black/60 h-full"
+                                    className='bg-white  relative p-6 rounded-lg shadow-lg w-96 mt-48 mx-auto'>
                                     <h1>Are you sure ??</h1>
                                     <div className='flex flex-row gap-3.5 my-5'>
 
