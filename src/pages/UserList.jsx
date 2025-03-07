@@ -210,21 +210,26 @@ const UserList = () => {
 
             </div>
             <div className='flex justify-between items-center m-4'>
-                <button
-                    disabled={currPage === 1}
-                    onClick={() => setCurrPage(prev => Math.max(prev - 1, 1))}
-                    className={` bg-[#b9c956] text-white font-bold border p-3 transform transition-transform rounded-lg ${currPage === 1 ? `hover:bg-slate-200` : ``}`}
-                >
-                    Previous
-                </button>
+                {
+                    currPage == 1 ? <div></div> : <button
+                        disabled={currPage === 1}
+                        onClick={() => setCurrPage(prev => Math.max(prev - 1, 1))}
+                        className={` bg-[#b9c956] text-white font-bold border p-3 transform transition-transform rounded-lg `}
+                    >
+                        Previous
+                    </button>
+                }
                 <span className='translate-x-5 lg:translate-x-0'>page {currPage} of {totalPage}</span>
 
-                <button
-                    disabled={currPage === totalPage}
-                    onClick={() => setCurrPage(prev => Math.min(prev + 1, totalPage))}
-                    className={`bg-[#608e4d] text-white font-bold   border p-3 translate-x-5 lg:translate-x-0 transform transition-transform rounded-lg ${currPage === totalPage ? `hover:bg-slate-200` : ``}`}
-                >
-                    Next</button>
+                {
+                    currPage === totalPage ? <div></div> : <button
+                        disabled={currPage === totalPage}
+                        onClick={() => setCurrPage(prev => Math.min(prev + 1, totalPage))}
+                        className={`bg-[#608e4d] text-white font-bold   border p-3 translate-x-5 lg:translate-x-0 transform transition-transform rounded-lg ${currPage === totalPage ? `hidden` : `block`}`}
+                    >
+                        Next</button>
+                }
+
             </div>
 
 
