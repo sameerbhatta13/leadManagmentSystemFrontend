@@ -6,9 +6,6 @@ import { AdminApi } from '../redux/Api/Admin'
 import { ServiceApi } from '../redux/Api/Service'
 import AdminReducer from '../redux/Slice/AdminSlice'
 
-
-
-
 export const store = configureStore({
     reducer: {
         admin: AdminReducer,
