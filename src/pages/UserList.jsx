@@ -9,6 +9,7 @@ import UpdateForm from './UpdateForm'
 const UserList = () => {
     const [selectedValue, setSelectedValue] = useState('')
     const [search, setSearch] = useState('')
+    const [value, setValue] = useState()
     const [selectUser, setSelectUser] = useState({})
 
     const [currPage, setCurrPage] = useState(1)
@@ -71,6 +72,16 @@ const UserList = () => {
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div>
+                <select name="" id="" className='border-2 rounded-lg'
+                    onChange={(e) => setValue(e.target.value)}
+                >
+                    <option value=""></option>
+                    <option value="0-10">0-10</option>
+                    <option value="10-20">10-20</option>
+                </select>
             </div>
 
             <div className="relative flex flex-col w-full h-full overflow-scroll  shadow-md rounded-lg bg-clip-border">
@@ -209,12 +220,12 @@ const UserList = () => {
                     >
                         previous
                     </button>
-                    <span>page {currPage} of {totalPage}</span>
+                    <span className='translate-x-48 md:translate-x-0'>page {currPage} of {totalPage}</span>
 
                     <button
                         disabled={currPage === totalPage}
                         onClick={() => setCurrPage(prev => Math.min(prev + 1, totalPage))}
-                        className={`border p-3 transform transition-transform rounded-lg ${currPage === totalPage ? `bg-white` : `bg-slate-300`}`}
+                        className={`border p-3 translate-x-96 md:translate-x-0 transform transition-transform rounded-lg ${currPage === totalPage ? `bg-white` : `bg-slate-300`}`}
                     >
                         Next</button>
                 </div>

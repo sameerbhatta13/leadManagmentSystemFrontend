@@ -299,16 +299,19 @@ const Dashboard = () => {
                     </button>
                 </div>
 
+
                 <Modal
                     isOpen={isModalOpen}
                     onRequestClose={() => setIsModalOpen(false)}
                     className="bg-white  relative p-6 rounded-lg shadow-lg w-96 mt-48 mx-auto">
-                    <div >
+                    <div>
                         <InputForm setIsModalOpen={setIsModalOpen} refetch={refetch} />
                     </div>
 
-
                 </Modal>
+
+
+
 
 
                 {/* for number of lead */}
