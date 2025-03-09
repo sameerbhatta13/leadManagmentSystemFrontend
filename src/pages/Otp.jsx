@@ -12,7 +12,7 @@ const Otp = () => {
         e.preventDefault()
         try {
             const response = await GetOtp({ otp })
-            console.log("first", response)
+            // console.log("first", response)
 
             if (response?.data?.message) {
                 navigate('/update/admin')

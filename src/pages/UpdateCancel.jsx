@@ -24,7 +24,7 @@ const UpdateCancel = ({ id, status, setSelectedValue }) => {
         e.preventDefault()
 
         const update = await updateUser({ id: id, data: cancel })
-        console.log(update)
+        // console.log(update)
         refetch()
         setSelectedValue('')
 

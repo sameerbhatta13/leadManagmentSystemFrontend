@@ -5,7 +5,15 @@ import { APP_URL } from '../../../config.js'
 export const AdminApi = createApi({
     reducerPath: 'adminapi',
     baseQuery: fetchBaseQuery({
-        baseUrl: APP_URL
+        baseUrl: APP_URL,
+        prepareHeaders: (headers, { getState }) => {
+            const token = getState()?.admin?.token
+            // console.log("token", token)
+            if (token) {
+                headers.set('Authorization', `Bearer ${token}`)
+            }
+            return headers
+        }
     }),
     endpoints: (builder) => ({
         signinAdmin: builder.mutation({
@@ -19,10 +27,6 @@ export const AdminApi = createApi({
             query: () => ({
                 url: '/admin',
                 method: 'GET',
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem('admin')}`
-                }
-
 
             })
         }),

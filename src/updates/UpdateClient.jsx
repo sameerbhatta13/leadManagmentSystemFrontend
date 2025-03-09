@@ -29,7 +29,7 @@ const UpdateClient = ({ item, id, setUser, setUpdateUser }) => {
     }
     const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log(updateClient)
+        // console.log(updateClient)
         try {
             const response = await update({
                 id, data: {
@@ -46,7 +46,7 @@ const UpdateClient = ({ item, id, setUser, setUpdateUser }) => {
                 }
             })
             console.log("response", response)
-            console.log(response?.data?.data.status)
+            // console.log(response?.data?.data.status)
             if (response?.data?.data?.status === 'Student') {
                 toast.success('Student updated successfully');
             } else if (response?.data?.data?.status === 'Client') {
@@ -106,8 +106,8 @@ const UpdateClient = ({ item, id, setUser, setUpdateUser }) => {
         <>
 
 
-            <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center  bg-black/60 ">
-                <div ref={popupRef} className="bg-white p-6 rounded-lg shadow-lg flex flex-col">
+            <div className="fixed top-0  md:top-0 left-0 w-full h-full flex justify-center items-center overflow-scroll bg-black/60 ">
+                <div ref={popupRef} className="bg-white p-6 rounded-lg shadow-lg flex flex-col ">
                     <div className='flex flex-row justify-between'>
 
                         <h1 className='text-3xl font-bold text-center text-gray-800 mb-9'>Update Student/Client</h1>
@@ -116,7 +116,7 @@ const UpdateClient = ({ item, id, setUser, setUpdateUser }) => {
 
                     </div>
 
-                    <form onSubmit={handleSubmit} className='space-y-5 rounded-lg'>
+                    <form onSubmit={handleSubmit} className='space-y-5 rounded-lg h-96 overflow-scroll'>
                         <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
                             <div className='flex flex-col'>
                                 <label className='text-left font-semibold my-1 text-gray-700'>Full Name</label>
@@ -220,7 +220,7 @@ const UpdateClient = ({ item, id, setUser, setUpdateUser }) => {
                         </div>
 
 
-                        <button className='flex justify-self-start border rounded-lg w-fit p-2 bg-gradient-to-r from-green-300 to-red-400 text-white font-bold'>update</button>
+                        <button className='flex justify-self-start border rounded-lg w-fit p-2 bg-[#059862] text-white  font-bold'>update</button>
                     </form>
                 </div>
             </div>

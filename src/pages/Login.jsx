@@ -4,9 +4,11 @@ import { NavLink, useNavigate } from 'react-router'
 import { toast } from 'react-toastify'
 import { useDispatch } from 'react-redux'
 import Modal from 'react-modal';
+import { login } from '../redux/Slice/AdminSlice'
 
 Modal.setAppElement('#root');
 const Login = () => {
+    const dispatch = useDispatch()
     const navigate = useNavigate();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [email, setEmail] = useState('')
@@ -28,18 +30,24 @@ const Login = () => {
         e.preventDefault()
         try {
             const response = await loginAdmin(loginData)
-            console.log(response)
-            localStorage.setItem('admin', response?.data?.data)
+            // console.log(response)
+            if (response?.data?.message) {
+                dispatch(login(response?.data?.data))
+                // localStorage.setItem('admin', response?.data?.data)
+                refetch()
+                toast.success('logged successfully')
+                navigate('/dashboard')
+                window.location.reload()
+            }
             // dispatch(setAdminProfile(response?.data?.data))
-            refetch()
-            // toast.success('logged successfully')
-            navigate('/dashboard')
+            else {
+                toast.error('something went wrong')
+            }
+
 
         } catch (error) {
-            console.log('error', response.message)
+            console.log('error', error?.message)
         }
-
-
     }
 
 

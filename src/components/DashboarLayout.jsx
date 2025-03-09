@@ -25,18 +25,21 @@ const Dashboard = () => {
 
     const { data, isError, error, refetch } = useGetUsersQuery();
 
+
     const countOccurance = data?.data?.reduce((acc, person) => {
         acc[person?.status] = (acc[person?.status] || 0) + 1;
         return acc;
     }, {});
 
     const { data: admin, refetch: adminrefetch } = useGetAdminQuery();
+    // console.log('admin', admin)
 
 
     const handleLogout = () => {
         dispatch(logout());
         navigate("/");
-        toast.info("logged Out");
+        window.location.reload()
+        // toast.info("logged Out");
     }
 
 
@@ -52,7 +55,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         adminrefetch();
-    }, [])
+    }, [data])
 
     useEffect(() => {
         refetch();
@@ -258,7 +261,7 @@ const Dashboard = () => {
                     <Tooltip
                         anchorSelect="#profile"
                         place="top"
-                        content="profile details"
+                        content=""
                         style={{ fontSize: "10px", padding: "4px", zIndex: 50 }}
                     />
 
@@ -271,7 +274,7 @@ const Dashboard = () => {
                                 Name: {admin?.data?.email.split("@")[0]}
                             </p>
                             <p className="text-gray-500 text-sm ">
-                                Email: {admin?.data.email}
+                                Email: {admin?.data?.email}
                             </p>
                             <button
                                 onClick={handleLogout}
@@ -283,8 +286,8 @@ const Dashboard = () => {
                     )}
                 </div>
                 <div className="flex flex-row justify-between my-2 mx-4">
-                    <p className="font-semibold my-2">
-                        Total Number of Leads: <b>{data?.data.length}</b>{" "}
+                    <p className="font-sans mx-2 md:mx-0 md:my-2">
+                        Total Leads: <b>{data?.data.length}</b>{" "}
                     </p>
 
                     <button
@@ -292,8 +295,8 @@ const Dashboard = () => {
                         onClick={() => setIsModalOpen(!isModalOpen)}
                     >
                         {" "}
-                        <MdAddCircle className="mt-1 " />
-                        Add Lead{" "}
+                        <MdAddCircle size={25} className="" />
+                        Add Lead
                     </button>
                 </div>
 
@@ -302,16 +305,12 @@ const Dashboard = () => {
                     isOpen={isModalOpen}
                     onRequestClose={() => setIsModalOpen(false)}
                     overlayClassName="fixed top-0 left-0 w-full h-full bg-black/60 "
-                    className="bg-white  relative p-6 rounded-lg shadow-lg w-96 mt-48 mx-auto">
+                    className="bg-white  relative p-6 rounded-lg shadow-lg w-[300px] md:w-96 mt-48 mx-auto">
                     <div>
                         <InputForm setIsModalOpen={setIsModalOpen} refetch={refetch} />
                     </div>
 
                 </Modal>
-
-
-
-
 
                 {/* for number of lead */}
                 <div className="grid grid-cols-2 gap-5 md:grid-cols-5 mx-4 pt-4 ">

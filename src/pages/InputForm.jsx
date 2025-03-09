@@ -15,6 +15,7 @@ const InputForm = ({ setIsModalOpen, refetch }) => {
     });
     // console.log(values)
 
+
     const [addUser, { isError, error }] = useAddUserMutation();
     // console.log(isError, error);
 
@@ -25,26 +26,20 @@ const InputForm = ({ setIsModalOpen, refetch }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         // console.log(values)
-
-
-
         try {
             const response = await addUser(values);
-            console.log("first", response)
+            // console.log("first", response)
             refetch()
             setIsModalOpen(false)
             if (response?.data?.message) {
-
                 toast.success(response?.data?.message)
-
             }
             else {
                 toast.error(response?.error?.data?.message)
-
             }
 
         } catch (error) {
-            console.log("error", error);
+            // console.log("error", error);
             toast.error("Error adding user");
         }
     };

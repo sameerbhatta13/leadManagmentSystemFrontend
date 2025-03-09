@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useGetUsersQuery, useUpdateUserMutation } from "../redux/Api/UserApi";
 import Modal from "react-modal";
+import { toast } from "react-toastify";
 
 const ActiveLead = () => {
     const [ismodalOpen, setIsModalOpen] = useState(false)
@@ -33,9 +34,10 @@ const ActiveLead = () => {
                 id: id,
                 data: updateFollowUp,
             });
-            console.log(update);
+            // console.log(update);
             if (update?.data?.message) {
-                console.log(update?.data?.data?.message);
+                toast.success('follow Up leads updates successfully')
+                // console.log(update?.data?.data?.message);
                 refetch();
             } else {
                 console.log();
@@ -60,6 +62,9 @@ const ActiveLead = () => {
                     {users?.length > 0 ||
                         users?.data?.some((user) => user?.status === "Active") ? (
                         <table className="table-auto border-separate border-gray-400 w-full p-2 my-6 rounded-lg ">
+                            <caption className="caption-top">
+                                <p className="flex items-center justify-start font-bold"> [Actives Leads]</p>
+                            </caption>
                             <thead>
                                 <tr>
                                     <th className="border border-gray-300 p-2">S.N</th>
@@ -115,12 +120,12 @@ const ActiveLead = () => {
                                 isOpen={ismodalOpen}
                                 onRequestClose={() => setIsModalOpen(false)}
                                 overlayClassName="fixed top-0 left-0 w-full bg-black/60 h-full"
-                                className="bg-white shadow-lg p-6 w-96 mt-48 mx-auto rounded-lg"
+                                className="bg-white shadow-lg p-6 w-[300px] md:w-96 mt-48 mx-auto rounded-lg"
                             >
                                 <div>
                                     <form action="" onSubmit={handleUpdate}>
                                         <label htmlFor="">Follow Up Date</label>
-                                        <input type="date" name="followUp" onChange={handleChange} className="border p-2 my-2 w-full" />
+                                        <input type="date" name="followUp" onChange={handleChange} className="border p-2 my-2 w-full" required />
 
                                         <label htmlFor="">Remarks</label>
                                         <textarea name="remarks" onChange={handleChange} id="" rows='1' cols='12' placeholder='Remarks' className="w-full p-2 border-2 mt-2  border-blue-500 rounded-md focus:outline-none focus:ring-2 focus:ring-red-300"></textarea>

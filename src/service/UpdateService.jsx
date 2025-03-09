@@ -18,7 +18,7 @@ const UpdateService = ({ id, setUpdateService, item }) => {
     const updateData = async (data) => {
         try {
             const response = await updateService(id, data)
-            console.log(response)
+            // console.log(response)
             refetch()
             setUpdateService()
             toast.success('updated successfully')
@@ -53,7 +53,7 @@ const UpdateService = ({ id, setUpdateService, item }) => {
     return (
         <>
             <div className="fixed top-0 left-0  w-full h-full flex justify-center items-center bg-black/50 ">
-                <div ref={popupRef} className="bg-white p-6 flex rounded-lg shadow-lg w-[30%]" >
+                <div ref={popupRef} className="bg-white p-6 flex rounded-lg shadow-lg w-[90%] md:w-[30%]" >
                     <form action="" onSubmit={handleSubmit(updateData)} className='w-full ' noValidate>
                         <div className='flex flex-col text-start'>
                             <h1 className='font-semibold'></h1>

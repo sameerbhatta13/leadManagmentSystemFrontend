@@ -7,13 +7,18 @@ export const AdminSlice = createSlice({
         token: localStorage.getItem('admin')
     },
     reducers: {
+        login: (state, action) => {
+            state.token = action.payload
+            localStorage.setItem("admin", action.payload)
+
+        },
         logout: (state) => {
             state.token = null
             localStorage.removeItem('admin')
-            console.log(state.token)
+
         }
     }
 })
 
-export const { logout } = AdminSlice.actions
+export const { logout, login } = AdminSlice.actions
 export default AdminSlice.reducer

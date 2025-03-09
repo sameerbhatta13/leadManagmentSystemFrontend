@@ -19,8 +19,8 @@ const UpdateAdmin = () => {
     const handleUpdatePassword = async (e) => {
         e.preventDefault()
 
-        console.log(id)
-        console.log(password)
+        // console.log(id)
+        // console.log(password)
 
         if (password !== confirmPassword) {
             setErrorMessage('password does not match')
@@ -29,7 +29,7 @@ const UpdateAdmin = () => {
             try {
                 const response = await updateAdmin({ id: id, data: { password } })
                 console.log(password)
-                console.log("first", response)
+                // console.log("first", response)
 
                 if (response?.data?.data) {
                     localStorage.removeItem('Id')

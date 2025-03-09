@@ -27,7 +27,6 @@ const UserList = () => {
         else {
 
             return item?.status.toLowerCase().includes(search.toLowerCase()) || item?.name.toLowerCase().includes(search.toLowerCase()) || String(item?.phone).includes(search)
-
         }
     })
 
@@ -39,9 +38,6 @@ const UserList = () => {
     useEffect(() => {
         refetch()
     }, [])
-
-
-
 
 
     return (
@@ -73,7 +69,7 @@ const UserList = () => {
                 </div>
             </div>
 
-            <div className="relative flex flex-col w-full h-full overflow-scroll  shadow-md rounded-lg bg-clip-border">
+            <div className="relative flex flex-col w-full h-full overflow-scroll shadow-md rounded-lg bg-clip-border">
                 {displayUser?.length > 0 ? (
                     <table className="w-full text-left table-auto  min-w-max border-gray-400 ">
                         <thead className=''>
@@ -203,36 +199,41 @@ const UserList = () => {
 
 
                     </table>) : (<div className='flex justify-center items-center my-9'>
-                        <h1 className='font-bold text-5xl'>No Records Found</h1>
+                        <h1 className='font-bold text-3xl'>No Records Found</h1>
                     </div>)
                 }
 
 
             </div>
-            <div className='flex justify-between items-center m-4'>
-                {
-                    currPage == 1 ? <div></div> : <button
-                        disabled={currPage === 1}
-                        onClick={() => setCurrPage(prev => Math.max(prev - 1, 1))}
-                        className={` bg-[#b9c956] text-white font-bold border p-3 transform transition-transform rounded-lg `}
-                    >
-                        Previous
-                    </button>
-                }
-                <span className='translate-x-5 lg:translate-x-0'>page {currPage} of {totalPage}</span>
 
-                {
-                    currPage === totalPage ? <div></div> : <button
-                        disabled={currPage === totalPage}
-                        onClick={() => setCurrPage(prev => Math.min(prev + 1, totalPage))}
-                        className={`bg-[#608e4d] text-white font-bold   border p-3 translate-x-5 lg:translate-x-0 transform transition-transform rounded-lg ${currPage === totalPage ? `hidden` : `block`}`}
-                    >
-                        Next</button>
-                }
+            {
+                displayUser?.length > 0 ? (
+                    <div className='flex justify-between items-center m-4'>
+                        {
+                            currPage == 1 ? <div></div> : <button
+                                disabled={currPage === 1}
+                                onClick={() => setCurrPage(prev => Math.max(prev - 1, 1))}
+                                className={` bg-[#b9c956] text-white font-bold border p-3 transform transition-transform rounded-lg `}
+                            >
+                                Previous
+                            </button>
+                        }
+                        <span className='translate-x-5 lg:translate-x-0'>page {currPage} of {totalPage}</span>
 
-            </div>
+                        {
+                            currPage === totalPage ? <div></div> : <button
+                                disabled={currPage === totalPage}
+                                onClick={() => setCurrPage(prev => Math.min(prev + 1, totalPage))}
+                                className={`bg-[#608e4d] text-white font-bold   border p-3 translate-x-5 lg:translate-x-0 transform transition-transform rounded-lg ${currPage === totalPage ? `hidden` : `block`}`}
+                            >
+                                Next</button>
+                        }
 
+                    </div>
 
+                ) : null
+
+            }
         </>
     )
 }

@@ -21,17 +21,22 @@ const UpdateFollowup = ({ id, item, setUser, setUpdateUser }) => {
         e.preventDefault()
         try {
             const updateData = await updateUser({ id: id, data: updatefollowUp })
-            console.log(updateData)
-            refetch()
-            toast.success('followup date updated')
+            // console.log(updateData)
 
+            if (updateData?.data?.message) {
+                toast.success('followup date updated')
+                refetch()
+
+            }
+            else {
+                toast.error('something went wrong')
+            }
 
         } catch (error) {
             console.log(error)
         }
 
     }
-
 
 
     useEffect(() => {
@@ -83,14 +88,14 @@ const UpdateFollowup = ({ id, item, setUser, setUpdateUser }) => {
 
                         <div className='flex flex-row'>
                             <button
-                                className=' bg-gradient-to-r from-red-300 to-red-400 rounded-lg p-2 mx-3 my-3 transform transition-transform   duration-150 hover:scale-105 font-bold '
+                                className='bg-red-600 text-white rounded-lg p-2 mx-3 my-3 transform transition-transform   duration-150 hover:scale-105 font-bold '
                                 onClick={() => {
                                     setUpdateUser("")
                                 }}
                             >
                                 Close
                             </button>
-                            <button className=' bg-gradient-to-r from-red-300 to-green-300 rounded-lg p-2 mx-3 my-3  font-bold transform transition-transform  duration-150 hover:scale-105 '>update</button>
+                            <button className=' bg-[#059862] text-white rounded-lg p-2 mx-3 my-3  font-bold transform transition-transform  duration-150 hover:scale-105 '>update</button>
                         </div>
                     </form>
                 </div>

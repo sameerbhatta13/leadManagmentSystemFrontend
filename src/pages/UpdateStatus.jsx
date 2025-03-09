@@ -28,10 +28,12 @@ const UpdateStatus = ({ id, setSelectedValue, status, }) => {
 
         try {
             const updateData = await updateUser({ id: id, data: followUp })
-            console.log(updateData)
+            // console.log(updateData)
             refetch()
-            toast.success('followup date updated')
-            setSelectedValue('')
+            if (updateData?.data?.message) {
+                toast.success('followup date updated')
+                setSelectedValue('')
+            }
         } catch (error) {
             console.log(error)
         }

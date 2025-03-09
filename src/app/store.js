@@ -4,15 +4,15 @@ import { setupListeners } from '@reduxjs/toolkit/query'
 import { UserApi } from '../redux/Api/UserApi'
 import { AdminApi } from '../redux/Api/Admin'
 import { ServiceApi } from '../redux/Api/Service'
-import AdminReducer from '../redux/Slice/AdminSlice'
+import AdminSlice from '../redux/Slice/AdminSlice'
+
 
 export const store = configureStore({
     reducer: {
-        admin: AdminReducer,
+        admin: AdminSlice,
         [UserApi.reducerPath]: UserApi.reducer,
         [AdminApi.reducerPath]: AdminApi.reducer,
         [ServiceApi.reducerPath]: ServiceApi.reducer
-
 
     },
     middleware: (getDefaultMiddleware) =>
