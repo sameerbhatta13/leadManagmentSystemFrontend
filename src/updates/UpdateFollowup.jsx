@@ -53,8 +53,6 @@ const UpdateFollowup = ({ id, item, setUser, setUpdateUser }) => {
         }
     }, [setUpdateUser])
 
-
-
     useEffect(() => {
         if (item) {
             setUpdateFollowUp({
