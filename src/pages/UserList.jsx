@@ -136,7 +136,7 @@ const UserList = () => {
                                                             setSelectUser(user)
 
                                                         }}
-
+                                                        value={selectUser._id === user._id ? selectedValue : ''}
                                                         name="service" id="" className='border border-gray-300 rounded-lg my-3 p-1 w-fit'>
                                                         <option value="" disabled selected  > select status</option>
                                                         <option value="Follow Up">Follow Up</option>
@@ -152,7 +152,7 @@ const UserList = () => {
                                                                     setSelectUser(user)
 
                                                                 }}
-
+                                                                value={selectUser._id === user._id ? selectedValue : ''}
                                                                 name="service" id="" className='border border-gray-300 rounded-lg my-3 p-1 w-fit'>
                                                                 <option value="" disabled selected> select status</option>
                                                                 <option value="Cancel">Cancel</option>
@@ -165,7 +165,7 @@ const UserList = () => {
                                                                     setSelectUser(user)
 
                                                                 }}
-
+                                                                value={selectUser._id === user._id ? selectedValue : ''}
                                                                 name="service" id="" className='border border-gray-300 rounded-lg my-3 p-1 w-fit'>
                                                                 <option value="" disabled selected> select status</option>
                                                                 <option value="Client">Client</option>
