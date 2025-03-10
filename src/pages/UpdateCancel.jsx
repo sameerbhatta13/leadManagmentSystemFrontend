@@ -9,7 +9,7 @@ const UpdateCancel = ({ id, status, setSelectedValue }) => {
         remarks: ''
     })
 
-    console.log(id)
+    // console.log(id)
     const handleChange = (e) => {
         setCancel({ ...cancel, [e.target.name]: e.target.value })
     }
