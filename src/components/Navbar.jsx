@@ -28,11 +28,9 @@ const Navbar = () => {
                     {/* <NavLink to="/services" className={({ isActive }) => `block py-2 md:inline ${isActive ? `text-blue-400 font-bold` : ``}`}>Services</NavLink>
                     <NavLink to="/userstate" className={({ isActive }) => `block py-2 md:inline ${isActive ? `text-blue-400 font-bold` : ``}`}>Status</NavLink> */}
                 </div>
-
             </div >
-
         </nav >
-    );
-};
+    )
+}
 
 export default Navbar;
