@@ -186,8 +186,6 @@ const UserList = () => {
                                             <UpdateCancel status={selectedValue} id={selectUser?._id} setSelectedValue={setSelectedValue} />
                                         )}
 
-
-
                                     </tr>
 
                                 })
