@@ -61,7 +61,7 @@ const ActiveLead = () => {
                 <div className="overflow-x-auto mt-6">
                     {users?.length > 0 ||
                         users?.data?.some((user) => user?.status === "Active") ? (
-                        <table className="table-auto border-separate border-gray-400 w-full p-2 my-6 rounded-lg ">
+                        <table className="table-auto border-separate border-gray-400 w-full p-2 my-6 rounded-lg">
                             <caption className="caption-top">
                                 <p className="flex items-center justify-start font-bold"> [Actives Leads]</p>
                             </caption>
